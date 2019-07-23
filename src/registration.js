@@ -32,27 +32,30 @@ export default class Registration extends React.Component {
                         location.replace('/');
                     } else {
                         this.setState({
-                            error: true
+                            error : true
                         });
                     }
                 }
-            );
+            )
+            .catch(err => {
+                console.log("err in reg.js submit", err);
+            });
     }
     render() {
         return (
             <div>
                 <div>
-                    { this.state.error && <div className="error">Error!</div> }
+                    { this.state.error && <div className="error">Please try again!</div> }
                 </div>
-                <form>
+                <form className="regi-container">
                     <input type="text" name="firstname" placeholder="first name" onChange={ e => this.handleChange(e) } required />
                     <input type="text" name="lastname" placeholder="last name" onChange={ e => this.handleChange(e) } required/>
                     <input type="text" name="email" placeholder="email" onChange={ e => this.handleChange(e) } required/>
-                    <input name="password" placeholder="password" onChange={ e => this.handleChange(e) } required/>
+                    <input type="password"  name="password" placeholder="password" onChange={ e => this.handleChange(e) } required/>
                     <button onClick={ e => this.submit(e) }>Register</button>
                 </form>
                 <div>
-                    <p>Already a member? <a href = "#">Log in</a></p>
+                    <p>Already a member? <a href = "/login">Log in</a></p>
                 </div>
             </div>
         );
