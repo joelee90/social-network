@@ -53,6 +53,49 @@ sql name : info.sql
 - [x] password type shows error
 - [ ] register - btn -> direct to img
 
+--------
+
+middleware 
+
+axios can read cookie, built in cookie parsing
+
+ajax req to server —> compared password —> send json response(work/not work) —> login (no state, but class)
+
+when successfully login —> image
+
+react router - detect changes and response to them by running js code, changes screeen based on the url
+
+two router - logged out(# route), logged in()
+
+regi <—> login switch between in welcome
+
+<db>
+
+SELECT * FROM information WHERE email = 'bj@bj.com';
+
+local lost 8080 —> 
+
+/welcome GET 
+
+1. server gets the request, it sends HTML as the response
+2. HTML makes request for bundle.js (compile react js)
+3. bundle js activates React
+4. **ReactDOM.render renders a component onscreen.
+
+
+
+rowCount > 1 —> email exists in db
+
+- [ ] failed to login —> should show error message!!!
+- [x] stay in same page, but with message error.
+- [ ] after login, go back —> stay or login page?
+
+
+
+
+
+
+
 
 
 

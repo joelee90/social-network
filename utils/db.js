@@ -13,3 +13,9 @@ exports.addNewUser = function addNewUser(firstname, lastname, email, password) {
         [ firstname, lastname, email, password ]
     );
 };
+
+exports.checkEmail = function checkEmail(email) {
+    return db.query(
+        `SELECT * FROM information WHERE email = $1 `, [email]
+    );
+};

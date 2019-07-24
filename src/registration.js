@@ -2,7 +2,9 @@
 //state is needed. use default when one
 
 import React from 'react';
-import axios from 'axios';
+import axios from './axios';
+
+import { HashRouter, Route, Link } from 'react-router-dom';
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -55,7 +57,7 @@ export default class Registration extends React.Component {
                     <button onClick={ e => this.submit(e) }>Register</button>
                 </form>
                 <div>
-                    <p>Already a member? <a href = "/login">Log in</a></p>
+                    <p> Already a member? <Link to = "/login">Log in</Link> </p>
                 </div>
             </div>
         );
