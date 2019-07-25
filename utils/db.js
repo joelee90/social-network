@@ -19,3 +19,9 @@ exports.checkEmail = function checkEmail(email) {
         `SELECT * FROM information WHERE email = $1 `, [email]
     );
 };
+
+//find users info to add img url.
+exports.getUserById = function getUserById(id) {
+    return db.query (
+        `SELECT id, firstname, lastname, url, bio FROM information WHERE id=$1`, [id]);
+};

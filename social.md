@@ -90,7 +90,33 @@ rowCount > 1 —> email exists in db
 - [x] stay in same page, but with message error.
 - [ ] after login, go back —> stay or login page?
 
+-------------
 
+<part 3>
+
+logo, user's profile pic - on screen at all times when loggedin.
+
+click —> upload the profile picture. available on everyscreen
+
+3 components : profile, modal(uploader), wrapper component.
+
+single component containing (logo, profile, uploader). —> app(loggedin)
+
+new users - img, bio to be null. 
+
+default user image from google -> for new users. need to show image even if the user didn't upload(use default image). do not put default image in db. leave in null, show default img unitl user uploads.
+
+click on profile pic —> see uploader
+
+x or upload to close the modal. ajax request - should be in upload component.
+
+form data s3, from imageboard(same), after s3 is done, db change. update users row, to set the image of the loggedin user. uploader ajax req - > formdata -> (append the file only) . selects image and starts uploading. 
+
+uploader 
+
+app  - make a function --> uploader to false (x clicked, automatically close after uploaded)
+
+- [ ] 
 
 
 

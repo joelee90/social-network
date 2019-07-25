@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Welcome from './welcome';
+import App from './app';
 
 
 let elem;
@@ -10,10 +11,13 @@ if(location.pathname == '/welcome') {
     elem = <Welcome />;
 } else {
     //loggedin
-    elem = <img src= "/images/line.png"  width = "300px" />;
+    elem = <App />;
 }
 
 ReactDOM.render(
     elem,
     document.querySelector('main')
 );
+
+// <App />; instead of <img>
+// <img src= "/images/line.png"  alt="Line" width = "300px" />;

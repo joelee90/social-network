@@ -5,3 +5,7 @@
 input {
     font-size: 15px;
 }
+
+.app {
+    height: 100px;
+}

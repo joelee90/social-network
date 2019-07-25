@@ -4,8 +4,32 @@ const compression = require('compression');
 const db = require("./utils/db");
 const bc = require("./utils/bc");
 const cookieSession = require("cookie-session");
+const multer = require('multer');
+const uidSafe = require('uid-safe');
+const path = require('path');
+const s3 = require('./s3');
+const config = require('./config');
+
 
 const csurf = require('csurf'); //use after the cookie
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + '/uploads');
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
 
 app.use(compression());
 app.use(express.static('./public'));
@@ -35,6 +59,22 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+// ----------------------------- part3 -----------------------------
+
+app.get('/user', async (req, res) => {
+    let user = await db.getUserById(req.session.userId);
+    user = user.rows[0];
+    if(!user.url){
+        user.url = '/images/default.png';
+    }
+    console.log("user", user);
+
+    res.json({user});
+
+}); // to see if user has image or not
+
+// ----------------------------- part3 -----------------------------
+
 // ----------------------------- part1 -----------------------------
 app.get('/welcome', (req,res) => {
     if(req.session.userId) {
@@ -61,28 +101,26 @@ app.post('/registration', async (req, res) => {
 
 // ----------------------------- part2 -----------------------------
 
-app.post('/login', (req, res) => {
-
+app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
     db.checkEmail(email)
         .then(val => {
             if(val.rowCount == 0) {
-                res.json({login:false});
+                res.json({ login:false });
             }
-            console.log("val", val);
             bc.checkPassword(password, val.rows[0].password)
                 .then(match => {
                     if(match) {
                         req.session.userId = val.rows[0].id;
-                        res.json({login:true});
+                        res.json({ login:true });
+                    } else {
+                        res.json({ login:false });
                     }
                 });
         })
         .catch(err => {
             console.log(err);
         });
-
 });
 
 // ----------------------------- part2 -----------------------------
