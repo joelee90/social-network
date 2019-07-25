@@ -116,6 +116,7 @@ uploader
 
 app  - make a function --> uploader to false (x clicked, automatically close after uploaded)
 
+- [ ] first, last hidden behind the default img
 - [ ] 
 
 

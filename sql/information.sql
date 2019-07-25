@@ -6,7 +6,7 @@ CREATE TABLE information(
     lastname VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR NOT NULL,
-    url VARCHAR(300),
+    url VARCHAR(600),
     bio text,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

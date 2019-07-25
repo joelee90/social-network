@@ -26,7 +26,6 @@ export default class App extends React.Component {
 
                 <header className="app">
                     <img src= "/images/line.png"  alt="Line" width = "300px" />
-                    <p> {this.state.firstname} </p>
                     <ProfilePic
                         url = {this.state.url}
                         firstname = {this.state.firstname}
@@ -35,7 +34,9 @@ export default class App extends React.Component {
                     />
                 </header>
 
-                { this.state.uploaderIsVisible && <Uploader done={ image => this.setState({image}) }/> }
+                { this.state.uploaderIsVisible &&
+                    <Uploader
+                        done={ url => this.setState({url, uploaderIsVisible: false}) }/> }
 
             </div>
         );

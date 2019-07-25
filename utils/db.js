@@ -25,3 +25,11 @@ exports.getUserById = function getUserById(id) {
     return db.query (
         `SELECT id, firstname, lastname, url, bio FROM information WHERE id=$1`, [id]);
 };
+
+
+exports.addUserImage = function addUserImage(url, id) {
+    return db.query(
+        `UPDATE information SET url = $1 WHERE id = $2 RETURNING url`,
+        [ url, id ]
+    );
+};
