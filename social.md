@@ -119,7 +119,9 @@ app  - make a function --> uploader to false (x clicked, automatically close aft
 - [ ] first, last hidden behind the default img
 - [ ] 
 
-
+- [ ] close btn
+- [ ] modal css
+- [ ] 
 
 
 

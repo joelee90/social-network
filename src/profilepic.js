@@ -2,10 +2,9 @@ import React from 'react';
 
 export default function({ url, firstname, lastname, onClick }) {
     // url = url || "/images/default.png";
-
     return (
         <img src={url}
-            alt={`${firstname} ${lastname}`} onClick={ onClick } width = "200px" />
+            alt={`${firstname} ${lastname}`} onClick={ onClick } width = "100px" />
     );
 }
 

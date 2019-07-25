@@ -9,11 +9,9 @@ export default class Uploader extends React.Component {
     }
 
     upload(e) {
-        // e.preventDefault();
-        console.log('yaa');
-        // let self = this;
+        // console.log('upload click!');
         let file = e.target.files[0];
-        console.log("file", file);
+        // console.log("file", file);
         let formData = new FormData();
         formData.append('file', file);
 
@@ -22,35 +20,37 @@ export default class Uploader extends React.Component {
                 if(data.success) {
                     this.props.done(data.data);
                     // self.props.onChange(data.url);
-                    console.log("data2222", data);
-                    console.log("data222url2", data.data);
+                    // console.log("data", data);
+                    // console.log("data.data", data.data);
                 } else {
                     console.log('upload fail');
                 }
             })
             .catch(function(err) {
-                console.log('err in POST/upload:',err);
+                console.log('err in upload(e):',err);
             });
-
     }
+
+    close(e) {
+        // e.preventDefault();
+        console.log('closebtn!!', e);
+        // this.setState = { uploaderIsVisible: false };        
+    }
+
 
     render() {
         return (
             <div className="modal">
-                <h1>Want to change your profile image?</h1>
-
-
+                <h1>Would you like to change your profile image?</h1>
                 <input onChange={ e => this.upload(e) }
                     name='file'
                     type='file'
                     id="file"
                     className="inputfile"
-                    accept='image/*'/>
+                    accept='image/*'
+                />
                 <label htmlFor="file">Upload</label>
-
-                <button onClick={ e => this.close(e) }>Close</button>
-
-
+                <button className="close-btn" onClick={ e => this.close(e) }>Close</button>
             </div>
         );
     }

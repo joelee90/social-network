@@ -6,10 +6,32 @@ input {
     font-size: 15px;
 }
 
-.app {
-    height: 100px;
+.headerapp {
+    margin: 30px;
 }
 
+.userimg {
+    float: right;
+}
+
+.modal {
+  display: grid;
+  grid-template-rows: 1fr 0.5fr 0.5fr;
+  position: fixed;
+  z-index: 9998;
+  top: 20%;
+  left: 25%;
+  width: 50%;
+  height: 20%;
+  background-color: #F5F5F5;
+  transition: opacity .3s ease;
+  text-align: center;
+  opacity: 0.98;
+  border: 0.5px solid #909090;
+  border-radius: 10px;
+}
+
+/* -------------------------------upload btn -------------------------------------- */
 .inputfile {
 	width: 0.1px;
 	height: 0.1px;
@@ -22,12 +44,25 @@ input {
 .inputfile + label {
     font-size: 1.25em;
     font-weight: 700;
-    color: white;
-    background-color: black;
+    color: #F5F5F5;
+    background-color: #9ACD32;
     display: inline-block;
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-    background-color: red;
+    background-color: #00FF7F;
+}
+
+
+.close-btn {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #F5F5F5;
+    background-color: #9ACD32;
+    display: inline-block;
+}
+
+.close-btn:hover {
+    background-color: #00FF7F;
 }

@@ -9,8 +9,6 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require('./s3');
 const config = require('./config');
-
-
 const csurf = require('csurf'); //use after the cookie
 
 const diskStorage = multer.diskStorage({
@@ -64,26 +62,24 @@ if (process.env.NODE_ENV != 'production') {
 app.get('/user', async (req, res) => {
     let user = await db.getUserById(req.session.userId);
     user = user.rows[0];
-    console.log("user.url", user.url);
+    // console.log("user.url", user.url);
     if(!user.url){
         user.url = '/default.png';
     }
-    console.log("user", user);
-
+    // console.log("user", user);
     res.json({user});
-
 }); // to see if user has image or not
 
 app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
     if(req.file) {
         let url = config.s3Url + req.file.filename;
-        console.log("url", url);
-        console.log("req.session.userId", req.session.userId);
+        // console.log("url", url);
+        // console.log("req.session.userId", req.session.userId);
         db.addUserImage(
             url,
             req.session.userId
         ).then(data => {
-            console.log("data", data.rows[0].url);
+            // console.log("data", data.rows[0].url);
             res.json({
                 data: data.rows[0].url,
                 success : true
@@ -115,7 +111,7 @@ app.post('/registration', async (req, res) => {
     try {
         let hash = await bc.hashPassword(password);
         let id = await db.addNewUser(firstname, lastname, email, hash);
-        console.log("id", id.rows[0].id);
+        // console.log("id", id.rows[0].id);
         req.session.userId = id.rows[0].id;
         res.json({ success : true }); //cannot happen until above are done
     } catch (err) {

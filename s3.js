@@ -22,7 +22,7 @@ exports.upload = (req, res, next) => {
     const {filename, mimetype, size, path} = req.file;
 
     s3.putObject({
-        Bucket: 'itsberlin',
+        Bucket: 'itsberlinagain',
         ACL: 'public-read',
         Key: filename,
         Body: fs.createReadStream(path),
