@@ -57,6 +57,21 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+// ----------------------------- part4 -----------------------------
+
+app.post('/bio', async (req,res) => {
+    const bio = req.body.bio;
+    try {
+        await db.updateUserBio(bio, req.session.userId);
+        console.log("bio", bio);
+        res.json({ bio });
+    } catch (err) {
+        console.log("err in app post /user", err);
+    }
+});
+
+// ----------------------------- part4 -----------------------------
+
 // ----------------------------- part3 -----------------------------
 
 app.get('/user', async (req, res) => {
@@ -156,5 +171,5 @@ app.get('*', function(req, res) {
 }); //if no cookie(not registered) redirect to /welcome
 
 app.listen(8080, function() {
-    console.log("I'm listening.");
+    console.log("What's Poppin 😎");
 });

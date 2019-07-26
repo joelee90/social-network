@@ -33,3 +33,10 @@ exports.addUserImage = function addUserImage(url, id) {
         [ url, id ]
     );
 };
+
+exports.updateUserBio = function updateUserBio(bio, id) {
+    return db.query(
+        `UPDATE information SET bio = $1 WHERE id = $2 RETURNING bio`,
+        [bio, id]
+    );
+};

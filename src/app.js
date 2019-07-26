@@ -1,13 +1,16 @@
 import React from 'react';
 import Uploader from './uploader';
 import ProfilePic from './profilepic';
+import Profile from './profile';
+import Bioeditor from './bioeditor';
 import axios from './axios';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uploaderIsVisible: false
+            uploaderIsVisible: false,
+            showBioeditor : false
         };
     }
     async componentDidMount() {
@@ -18,7 +21,6 @@ export default class App extends React.Component {
         );
     }
     render() {
-
         return (
             <div>
 
@@ -33,22 +35,40 @@ export default class App extends React.Component {
                         />
                     </div>
                 </header>
+                
+                <Profile
+                    firstname = {this.state.firstname}
+                    lastname = {this.state.lastname}
+                    profilepic = {
+                        <ProfilePic
+                            url = { this.state.url }
+                            firstname = { this.state.firstname }
+                            lastname = { this.state.lastname }
+                        />
+                    }
+                    bioeditor = {
+                        <Bioeditor
+                            onClick = { () =>
+                                this.setState({ showBioeditor: true})
+                            }
+                            bio = { this.state.bio }
+                            setBio = { bio => this.setState({ bio : bio })}
+                        />
+                    }
+                />
 
                 { this.state.uploaderIsVisible &&
-                    <Uploader onClick done={ url => this.setState({url, uploaderIsVisible: false }) }/>
-                // <Uploader onClick = { () => this.setState({ uploaderIsVisible: false }) } />
+                    <Uploader
+                        onClick
+                        done={ url => this.setState({url, uploaderIsVisible: false })}
+                        close = {() => this.setState({ uploaderIsVisible: false})
+                        }
+                    />
                 }
             </div>
-        // { this.state.uploaderIsVisible &&
-        // // <Uploader done={ url => this.setState({url, uploaderIsVisible: false }) }/>
-        // <Uploader onClick = { onClick => this.setState({ onClick, uploaderIsVisible: false }) } />
-        // }
-
-
         );
     }
 }
-
 
 //state -- display changes, when there is going to be change.
 //{this} - when false, doesn't show, when true show <Uploader> conditional content
@@ -67,3 +87,12 @@ export default class App extends React.Component {
 // if(!this.state.id) {
 //     return null; //<div>Loading...</div>
 // }
+
+// <ProfileCard
+//     bio = {this.state.bio}
+//     changeBio = {bio => {}}
+//     url = {this.state.url}
+//     firstname = {this.state.firstname}
+//     lastname = {this.state.lastname}
+//     onClick={() => this.setState({ uploaderIsVisible: true })}
+// />

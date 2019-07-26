@@ -32,9 +32,8 @@ export default class Uploader extends React.Component {
     }
 
     close(e) {
-        // e.preventDefault();
         console.log('closebtn!!', e);
-        // this.setState = { uploaderIsVisible: false };        
+        this.props.close();
     }
 
 
