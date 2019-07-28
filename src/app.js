@@ -35,7 +35,7 @@ export default class App extends React.Component {
                         />
                     </div>
                 </header>
-                
+
                 <Profile
                     firstname = {this.state.firstname}
                     lastname = {this.state.lastname}

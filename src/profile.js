@@ -4,16 +4,14 @@ import Bioeditor from "./bioeditor";
 
 export default function Profile(props) {
     return (
-        <div>
-        
-            {props.profilepic}
+        <div className="bioeditor-container">
 
-            <p>
-                {props.firstname} {props.lastname}
-            </p>
+            <div className="propic"> {props.profilepic} </div>
 
-            {props.bioeditor}
-
+            <div className="nameandbio">
+                <h2> {props.firstname} {props.lastname} </h2>
+                <div className="bioedit"> {props.bioeditor} </div>
+            </div>
         </div>
     );
 }

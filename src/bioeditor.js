@@ -12,10 +12,11 @@ export default class Bioeditor extends React.Component {
     componentDidMount() {
         this.setState((state, props) => ({ newBio : props.bio }));
     }
+    //user's original text is kept before making any changes.
 
     handleChange(e) {
         // console.log("keyboard", e );
-        console.log("e.target.value", e.target.value);
+        // console.log("e.target.value", e.target.value);
         this.setState({
             newBio : e.target.value
         });
@@ -23,12 +24,12 @@ export default class Bioeditor extends React.Component {
 
     submit(e) {
         e.preventDefault();
-        console.log("save!!", e);
+        // console.log("save!!", e);
         axios.post('/bio', {
             bio: this.state.newBio
         })
             .then(({ data }) => {
-                console.log("data", data);
+                // console.log("data", data);
                 this.setState({ editing:false });
                 this.props.setBio(data.bio);
             })
@@ -41,14 +42,13 @@ export default class Bioeditor extends React.Component {
     render() {
         return (
             <div>
-                <h2>Add your bio now!</h2>
 
                 {this.state.editing && (
                     <div>
                         <textarea
                             value = {this.state.newBio}
                             name="draftBio"
-                            cols="30"
+                            cols="50"
                             rows="10"
                             onChange = {e => this.handleChange(e)}
                         />
@@ -71,9 +71,3 @@ export default class Bioeditor extends React.Component {
         );
     }
 }
-
-
-// <p>{this.props.bio}</p>;
-// {!this.state.editing && (
-//     <button onClick = { this.setState({ editing:true })}> Add your bio! </button>
-// )}
