@@ -12,6 +12,7 @@ export default function Profile(props) {
                 <h2> {props.firstname} {props.lastname} </h2>
                 <div className="bioedit"> {props.bioeditor} </div>
             </div>
+            
         </div>
     );
 }

@@ -123,6 +123,88 @@ app  - make a function --> uploader to false (x clicked, automatically close aft
 - [ ] modal css
 - [ ] 
 
+---------
+
+<part5>
+
+popstatevent - back/forward button 
+
+history.pushState({}, '', '/disco/chicken')
+
+replacement for hash. browser router will do this. 
+
+react will know that the popstate was used and render the correct route. 
+
+Must use link in react. 
+
+page to stay, but only url to change. 
+
+if using links, must be inside the browserouter. 
+
+if user decides to use url to 
+
+no matter what the url is, get the same index.html,
+
+type in correct url to see other ppl' profile.
+
+make component for otherprofile. — ajax request to get users information , id of the user it wants to show. render function, 
+
+class, ajax request to get info of userinquestion. whoes id is in route. 
+
+key forces react to throw 
+
+- [ ] otherprofile.js
+- [ ] index.js
+- [ ] app.js
+
+render otherprofile only to show(not edit) 
+
+using url : /user/5 —> direct to see the other users profile. otherprofile.js should render profile pic, bio(only view) and ajax request to the corresponding id, which means db.query that gets other users' information to render.
+
+Have to know I am logged in as user 1.
+
+curry0@example.com
+
+password: curry
+
+ Stephanie Liu
+
+
+
+***otherprofile.js componentDidMount axios.get url should not match index.js app.get(user)
+
+-------
+
+<Jest>
+
+react test before part 7, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

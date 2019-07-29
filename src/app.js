@@ -3,7 +3,9 @@ import Uploader from './uploader';
 import ProfilePic from './profilepic';
 import Profile from './profile';
 import Bioeditor from './bioeditor';
+import OtherProfile from './otherprofile';
 import axios from './axios';
+import { Route, BrowserRouter, Link } from 'react-router-dom';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -36,26 +38,37 @@ export default class App extends React.Component {
                     </div>
                 </header>
 
-                <Profile
-                    firstname = {this.state.firstname}
-                    lastname = {this.state.lastname}
-                    profilepic = {
-                        <ProfilePic
-                            url = { this.state.url }
-                            firstname = { this.state.firstname }
-                            lastname = { this.state.lastname }
-                        />
-                    }
-                    bioeditor = {
-                        <Bioeditor
-                            onClick = { () =>
-                                this.setState({ showBioeditor: true})
-                            }
-                            bio = { this.state.bio }
-                            setBio = { bio => this.setState({ bio : bio })}
-                        />
-                    }
-                />
+                <BrowserRouter>
+                    <div>
+                        <Route exact path = "/" render = {props => {
+                            return (
+                                <Profile
+                                    firstname = {this.state.firstname}
+                                    lastname = {this.state.lastname}
+                                    profilepic = {
+                                        <ProfilePic
+                                            url = { this.state.url }
+                                            firstname = { this.state.firstname }
+                                            lastname = { this.state.lastname }
+                                        />
+                                    }
+                                    bioeditor = {
+                                        <Bioeditor
+                                            onClick = { () =>
+                                                this.setState({ showBioeditor: true})
+                                            }
+                                            bio = { this.state.bio }
+                                            setBio = { bio => this.setState({ bio : bio })}
+                                        />
+                                    }
+                                />
+                            );
+                        }} />
+                        <Route path = "/user/:id" component = {OtherProfile} />
+                        <Route path = "/chat" component = {OtherProfile} />
+                        <Link to = "/">Home</Link>
+                    </div>
+                </BrowserRouter>
 
                 { this.state.uploaderIsVisible &&
                     <Uploader
@@ -69,6 +82,8 @@ export default class App extends React.Component {
         );
     }
 }
+
+
 
 //state -- display changes, when there is going to be change.
 //{this} - when false, doesn't show, when true show <Uploader> conditional content
@@ -87,12 +102,3 @@ export default class App extends React.Component {
 // if(!this.state.id) {
 //     return null; //<div>Loading...</div>
 // }
-
-// <ProfileCard
-//     bio = {this.state.bio}
-//     changeBio = {bio => {}}
-//     url = {this.state.url}
-//     firstname = {this.state.firstname}
-//     lastname = {this.state.lastname}
-//     onClick={() => this.setState({ uploaderIsVisible: true })}
-// />

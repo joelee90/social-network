@@ -63,7 +63,7 @@ app.post('/bio', async (req,res) => {
     const bio = req.body.bio;
     try {
         await db.updateUserBio(bio, req.session.userId);
-        console.log("bio", bio);
+        // console.log("bio", bio);
         res.json({ bio });
     } catch (err) {
         console.log("err in app post /user", err);
@@ -85,6 +85,27 @@ app.get('/user', async (req, res) => {
     res.json({user});
 }); // to see if user has image or not
 
+// ----------------------------- part5 -----------------------------
+app.get("/user/:id.json", async (req, res) => {
+    try {
+        if(req.params.id == req.sessionId) {
+            throw new Error('current user');
+        }
+
+        const user = await db.getUserById(req.params.id);
+        console.log("user", user);
+
+        res.json(
+            user.rows[0]
+        );
+
+    } catch (err) {
+        console.log("err in get user/id/json",err);
+        res.json({ sameUser: true });
+    }
+}); //"api/user/:id"
+// ----------------------------- part5 -----------------------------
+
 app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
     if(req.file) {
         let url = config.s3Url + req.file.filename;
@@ -102,14 +123,12 @@ app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
         })
             .catch(function(err) {
                 console.log('err in post:',err);});
-
     } else {
         res.json({
             success : false });
     }
 
 });
-
 // ----------------------------- part3 -----------------------------
 
 // ----------------------------- part1 -----------------------------
@@ -134,11 +153,9 @@ app.post('/registration', async (req, res) => {
         console.log("err in POST /registration: ", err);
     }
 });
-
 // ----------------------------- part1 -----------------------------
 
 // ----------------------------- part2 -----------------------------
-
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     db.checkEmail(email)
@@ -160,7 +177,6 @@ app.post('/login', async (req, res) => {
             console.log(err);
         });
 });
-
 // ----------------------------- part2 -----------------------------
 app.get('*', function(req, res) {
     if(!req.session.userId) {
