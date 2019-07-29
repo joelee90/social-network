@@ -86,22 +86,22 @@ app.get('/user', async (req, res) => {
 }); // to see if user has image or not
 
 // ----------------------------- part5 -----------------------------
-app.get("/user/:id.json", async (req, res) => {
+app.get("/api/user/:id", async (req, res) => {
+    // console.log("req.params", req.params);
+    // console.log("req.params.id", req.params.id);
     try {
-        if(req.params.id == req.sessionId) {
-            throw new Error('current user');
+        const {id} = req.params;
+        // console.log("id", id);
+        if(id == req.session.userId) {
+            res.json({sameUser : true});
+            // throw new Error('current user');
         }
-
         const user = await db.getUserById(req.params.id);
-        console.log("user", user);
-
-        res.json(
-            user.rows[0]
-        );
-
+        // console.log("user", user);
+        // console.log("user", user.rows[0]);
+        res.json(user.rows[0]);
     } catch (err) {
         console.log("err in get user/id/json",err);
-        res.json({ sameUser: true });
     }
 }); //"api/user/:id"
 // ----------------------------- part5 -----------------------------
