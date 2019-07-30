@@ -169,8 +169,6 @@ password: curry
 
  Stephanie Liu
 
-
-
 ***otherprofile.js componentDidMount axios.get url should not match index.js app.get(user)
 
 -------
@@ -179,13 +177,35 @@ password: curry
 
 react test before part 7, 
 
+---------
+
+Hooks
+
+'state'-when data changes, display updates. 'lifecycle' methods-
+
+useState-
+
+useeffect-hook into component life cycle, ex)componentdidmount. 
+
+ hook should begin with "use". cannot be used in class component. highest level in the function. (top level)
+
+<part 6>
+
+new route - find people.js,  route: /users/
+
+function component, useState, useEffect, 
+
+first time mount - > ajaz req get 3 recently registered users, db query  SELECT * order by id descedning limit 3, textfield, afjax req get users they typed and render on screen. click to go their porfile. id, profile pic, first, last (different queryfor search - pattern matching, ILIKE case insensitive, ). useState- 2 things, users-update the display, array of users, array of users in state in find people. 
+
+- [ ] findpeople.js
+- [ ] index.js ajax req
+- [ ] app.js axiom
+
+if user goes to users, they should be able to see new 5 register people. index.js make a ajax req and in findpeople.js axios to get the data from db and render back to the browser.
 
 
 
-
-
-
-
+type name -> val -> db query -> search in db -> browser
 
 
 

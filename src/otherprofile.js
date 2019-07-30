@@ -37,29 +37,3 @@ export default class OtherProfile extends React.Component {
         );
     }
 }
-
-//reuse profile,
-
-// /user/5
-// /user/5
-//
-// works same as express route
-// req.params.id
-//
-// react router :
-// match (url to the component), params.
-//
-//
-//
-// will figureout bad id, see what response i get with bad user number.
-//
-// mount ,get the id, make axios request , put in data
-// bc id is coming from url, 1. users can type anything, 2.
-//
-// issue : /user/10 --> /user/5 (link)
-//
-// const {a,b,c} = {
-//     a: 1,
-//     b: 2,
-//     c: 3
-// }

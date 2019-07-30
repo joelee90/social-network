@@ -84,6 +84,7 @@ app.get('/user', async (req, res) => {
     // console.log("user", user);
     res.json({user});
 }); // to see if user has image or not
+// ----------------------------- part3 -----------------------------
 
 // ----------------------------- part5 -----------------------------
 app.get("/api/user/:id", async (req, res) => {
@@ -94,17 +95,32 @@ app.get("/api/user/:id", async (req, res) => {
         // console.log("id", id);
         if(id == req.session.userId) {
             res.json({sameUser : true});
-            // throw new Error('current user');
+            throw new Error('current user');
         }
         const user = await db.getUserById(req.params.id);
         // console.log("user", user);
         // console.log("user", user.rows[0]);
         res.json(user.rows[0]);
     } catch (err) {
-        console.log("err in get user/id/json",err);
+        console.log("err in get api/user/id/",err);
     }
 }); //"api/user/:id"
 // ----------------------------- part5 -----------------------------
+
+// ----------------------------- part6 -----------------------------
+app.get('/api/users', async (req, res) => {
+    const newUsers = await db.getNewUsers();
+    // console.log("newUsers.rows", newUsers.rows);
+    res.json(newUsers.rows);
+});
+
+app.get('/search/:val.json', async (req, res) => {
+    const searchUsers = await db.getMatching(req.params.val);
+    // console.log("searchUsers", searchUsers);
+    res.json(searchUsers.rows);
+});
+
+// ----------------------------- part6 -----------------------------
 
 app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
     if(req.file) {

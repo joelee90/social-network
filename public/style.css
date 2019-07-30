@@ -90,3 +90,17 @@ input {
 .bioedit {
     font-size: 20px;
 }
+
+/* ------------------------------- new -------------------------------------- */
+
+.newpeople {
+    border: solid 1px black;
+    display: flex;
+    flex-direction: row;
+}
+
+.newpeoplein {
+    border: solid 1px black;
+    display: flex;
+    flex-direction: row;
+}

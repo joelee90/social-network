@@ -40,3 +40,16 @@ exports.updateUserBio = function updateUserBio(bio, id) {
         [bio, id]
     );
 };
+
+exports.getNewUsers = function getNewUsers() {
+    return db.query(
+        `SELECT id, firstname, lastname, url FROM information ORDER BY created_at DESC LIMIT 3`
+    );
+};
+
+exports.getMatching = function getMatching(val) {
+    return db.query(
+        `SELECT * FROM information WHERE firstname ILIKE $1 OR lastname ILIKE $1`,
+        [val + '%']
+    );
+};
