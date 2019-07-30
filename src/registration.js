@@ -2,6 +2,7 @@
 //state is needed. use default when one
 
 import React from 'react';
+
 import axios from './axios';
 
 import { HashRouter, Route, Link } from 'react-router-dom';
@@ -54,7 +55,9 @@ export default class Registration extends React.Component {
                     <input type="text" name="lastname" placeholder="last name" onChange={ e => this.handleChange(e) } required/>
                     <input type="text" name="email" placeholder="email" onChange={ e => this.handleChange(e) } required/>
                     <input type="password"  name="password" placeholder="password" onChange={ e => this.handleChange(e) } required/>
-                    <button onClick={ e => this.submit(e) }>Register</button>
+                    < br/>
+                    < br/>
+                    <button className="regi-btn" variant="secondary" size="lg" onClick={ e => this.submit(e) }>Register</button>
                 </form>
                 <div>
                     <h2> Already a member? <Link to = "/login" style = {{textDecoration: "none"}}>Log in</Link> </h2>
