@@ -7,14 +7,14 @@ import { HashRouter, Route } from 'react-router-dom'; //Switch also possible
 export default class Welcome extends React.Component {
     render() {
         return (
-            <div>
+            <div className="mainpage">
                 <h1>Connect with your Mates :)</h1>
-                <img src= "/images/line.png" width = "700px"/>
+                <img src= "/images/line.png" style = {{ width: "700px", margin: "20px"}}/>
 
                 <HashRouter>
-                    <div>
+                    <div style = {{margin: "20px"}}>
                         <Route exact path="/" component={Registration} />
-                        <Route path="/login" component={Login} /> 
+                        <Route path="/login" component={Login} />
                     </div>
                 </HashRouter>
 

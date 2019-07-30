@@ -30,7 +30,7 @@ export default class App extends React.Component {
                     <div>
                         <header style = {{borderBottom: "1px solid black"}} className="headerapp">
                             <img src= "/images/line.png"  alt="Line" width = "200px" />
-                            <Link style = {{textDecoration: "none"}} to = "/">Home</Link>
+                            <Link style = {{textDecoration: "none"}} to = "/">My Profile</Link>
                             <Link style = {{textDecoration: "none"}} to = "/users">Find People</Link>
                             <div className="userimg">
                                 <ProfilePic
