@@ -26,52 +26,51 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-
-
-                <header className="headerapp">
-                    <img src= "/images/line.png"  alt="Line" width = "200px" />
-                    <div className="userimg">
-                        <ProfilePic
-                            url = {this.state.url}
-                            firstname = {this.state.firstname}
-                            lastname = {this.state.lastname}
-                            onClick = { () => this.setState({ uploaderIsVisible: true }) }
-                        />
-                    </div>
-                </header>
-
-
                 <BrowserRouter>
                     <div>
-                        <Route exact path = "/" render = {props => {
-                            return (
-                                <Profile
+                        <header style = {{borderBottom: "1px solid black"}} className="headerapp">
+                            <img src= "/images/line.png"  alt="Line" width = "200px" />
+                            <Link style = {{textDecoration: "none"}} to = "/">Home</Link>
+                            <Link style = {{textDecoration: "none"}} to = "/users">Find People</Link>
+                            <div className="userimg">
+                                <ProfilePic
+                                    url = {this.state.url}
                                     firstname = {this.state.firstname}
                                     lastname = {this.state.lastname}
-                                    profilepic = {
-                                        <ProfilePic
-                                            url = { this.state.url }
-                                            firstname = { this.state.firstname }
-                                            lastname = { this.state.lastname }
-                                        />
-                                    }
-                                    bioeditor = {
-                                        <Bioeditor
-                                            onClick = { () =>
-                                                this.setState({ showBioeditor: true})
-                                            }
-                                            bio = { this.state.bio }
-                                            setBio = { bio => this.setState({ bio : bio })}
-                                        />
-                                    }
+                                    onClick = { () => this.setState({ uploaderIsVisible: true }) }
                                 />
-                            );
-                        }} />
-                        <Route path = "/user/:id" component = {OtherProfile} />
-                        <Route path = "/users" component = {FindPeople} />
-                        <Route path = "/chat" component = {OtherProfile} />
-                        <Link to = "/">Home</Link>
-                        <Link to = "/users">Find People</Link>
+                            </div>
+                        </header>
+
+                        <div>
+                            <Route exact path = "/" render = {props => {
+                                return (
+                                    <Profile
+                                        firstname = {this.state.firstname}
+                                        lastname = {this.state.lastname}
+                                        profilepic = {
+                                            <ProfilePic
+                                                url = { this.state.url }
+                                                firstname = { this.state.firstname }
+                                                lastname = { this.state.lastname }
+                                            />
+                                        }
+                                        bioeditor = {
+                                            <Bioeditor
+                                                onClick = { () =>
+                                                    this.setState({ showBioeditor: true})
+                                                }
+                                                bio = { this.state.bio }
+                                                setBio = { bio => this.setState({ bio : bio })}
+                                            />
+                                        }
+                                    />
+                                );
+                            }} />
+
+                            <Route path = "/user/:id" component = {OtherProfile} />
+                            <Route path = "/users" component = {FindPeople} />
+                        </div>
                     </div>
                 </BrowserRouter>
 

@@ -7,11 +7,13 @@ input {
 }
 
 .headerapp {
-    margin: 30px;
-}
-
-.userimg {
-    float: right;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 0.5fr;
+    align-items: center;
+    place-self: center;
+    justify-items: end;
+    margin: 20px;
+    height: auto;
 }
 
 .modal {
@@ -93,6 +95,10 @@ input {
 
 /* ------------------------------- new -------------------------------------- */
 
+.inputforsearch {
+    font-size: 30px;
+}
+
 .newpeople {
     border: solid 1px black;
     display: flex;
@@ -103,4 +109,9 @@ input {
     border: solid 1px black;
     display: flex;
     flex-direction: row;
+}
+
+.searched {
+    margin: 10px;
+    padding: 10px;
 }

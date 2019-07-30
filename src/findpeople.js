@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from './axios';
 
 export default function FindPeople ({ id }) {
@@ -9,10 +10,9 @@ export default function FindPeople ({ id }) {
     // console.log("val", val);
 
     useEffect(() => {
-
         if(!val) {
             (async () => {
-            // console.log("val", val);
+                // console.log("val", val);
                 const list = await axios.get(`/api/users`);
                 // console.log('list', list.data);
                 setUser(list.data);
@@ -26,13 +26,13 @@ export default function FindPeople ({ id }) {
         }
     }, [val]);
 
-
     return (
-        <div>
-            <h1>Find People</h1>
+        <div className = "searched">
+            <h1>Find your mates :)</h1>
 
             <input
-                style= {{margin: "20px"}}
+                className = "inputforsearch"
+                style= {{margin: "20px", width: "500px"}}
                 type="text" name="searchbar"
                 placeholder="find your mates"
                 onChange={ e => setVal(e.target.value)}
@@ -43,30 +43,14 @@ export default function FindPeople ({ id }) {
                 val => (
                     <div className="newpeople" key={val.id}>
                         <div className="newpeoplein" >
-                            <img src = {val.url} />
+                            <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
+
                             <h1> {val.firstname} {val.lastname} </h1>
                         </div>
                     </div>
                 )
             )}
+
         </div>
     );
 }
-
-
-
-// {user.map (
-//     user => {
-//         <div key={user.id}>
-//             {user.firstname}
-//             {user.lastname}
-//         </div>
-//     }
-// )}
-
-// useEffect - ajax req when component mounts.
-// 1 recent users - once when component mounts - pass empty array, run whenever val changes and set the new value
-// when get new users, calls setUsers. only when the textfield value changes.
-// 2 search
-//
-// use together

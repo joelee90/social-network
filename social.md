@@ -203,9 +203,8 @@ first time mount - > ajaz req get 3 recently registered users, db query  SELECT 
 
 if user goes to users, they should be able to see new 5 register people. index.js make a ajax req and in findpeople.js axios to get the data from db and render back to the browser.
 
-
-
-type name -> val -> db query -> search in db -> browser
+- [x] click photo —> link to the person's bio
+- [ ] 
 
 
 
