@@ -63,21 +63,21 @@ exports.checkFriendship = function checkFriendship(sender_id, receiver_id) {
 
 exports.makeFriendRequest = function makeFriendRequest(sender_id, receiver_id) {
     return db.query(
-        `INSERT INTO friendships (sender_id, receiver_id) VALUES ($1, $2)`,
+        `INSERT INTO friendships (sender_id, receiver_id) VALUES ($1, $2) RETURNING *`,
         [sender_id, receiver_id]
     );
 };
 
-exports.acceptFriendRequest = function acceptFriendRequest() {
+exports.acceptFriendRequest = function acceptFriendRequest(sender_id, receiver_id) {
     return db.query(
-        `UPDATE friendships`,
-        []
+        `UPDATE friendships SET accepted = true WHERE sender_id=$1 AND receiver_id=$2 RETURNING *`,
+        [sender_id, receiver_id]
     );
 };
 
-exports.cancelFriend = function cancelFriend() {
+exports.cancelFriend = function cancelFriend(sender_id, receiver_id) {
     return db.query(
-        `DELETE friendships`,
-        []
+        `DELETE FROM friendships WHERE (sender_id=$1 AND receiver_id=$2) OR (sender_id=$2 AND receiver_id = $1)`,
+        [sender_id, receiver_id]
     );
 };

@@ -127,28 +127,45 @@ app.get('/search/:val.json', async (req, res) => {
 //check the relationship between two people
 app.get('/users/:val.json', async (req, res) => {
 
-    const sender = req.session.userId;
-    const receiver = req.params.val;
-    console.log("sender", sender);
-    console.log("receiver", receiver);
+    // console.log("sender", sender);
+    // console.log("receiver", receiver);
+    // console.log("checkFriend", checkFriend);
+    // console.log("checkFriend.rows[0].accepted", checkFriend.rows[0]);
+    // console.log("checkFriend.rows[0].sender_id", checkFriend.rows[0].sender_id);
+    // console.log("checkFriend.rows[0].accepted", checkFriend.rows[0].accepted);
 
-    const checkFriend = await db.checkFriendship(sender, receiver);
-    console.log("checkFriend", checkFriend);
+    try {
+        const sender = req.session.userId;
+        const receiver = req.params.val;
+        const checkFriend = await db.checkFriendship(sender, receiver);
 
-    if(checkFriend.rows == 0) {
-        res.json({
-            buttonText :"Add Friend"
-        });
-    }  else {
-        res.json({
-            buttonText :"Cancel Friend"
-        });
+        if(checkFriend.rows == 0) {
+            res.json({
+                buttonText :"Add Friend"
+            });
+        } else if(checkFriend.rows[0].accepted) {
+            res.json({
+                buttonText :"Cancel Friend"
+            });
+        } else if(checkFriend.rows[0].sender_id == receiver) {
+            res.json({
+                buttonText :"Accept Friend"
+            });
+        } else {
+            res.json({
+                buttonText :"Remove Friend"
+            });
+        }
+    } catch (err) {
+        console.log("err in get check friend", err);
     }
+
 
 });
 
 
 app.post('/users/:val.json', async (req, res) => {
+
     try {
 
         const sender = req.session.userId;
@@ -156,15 +173,28 @@ app.post('/users/:val.json', async (req, res) => {
         console.log("sender post", sender);
         console.log("req.params post", req.params);
 
-        const addFriend = await db.makeFriendRequest(sender, receiver);
-        console.log("addFriend", addFriend);
-
+        const buttonStatus = req.body.button;
         console.log("req.body.button", req.body.button);
-        const buttonstatus = req.body.button;
 
         try {
-            if(addFriend.rowCount == 0) {
+            if(buttonStatus == "Add Friend") {
                 const addFriend = await db.makeFriendRequest(sender, receiver);
+                console.log("addFriend", addFriend);
+                res.json({
+                    buttonText : "Cancel Friend"
+                });
+            } else if(buttonStatus == "Accept Friend") {
+                const acceptFriendRequest = await db.acceptFriendRequest(sender, receiver);
+                console.log("acceptFriendRequest", acceptFriendRequest);
+                res.json({
+                    buttonText : "Remove Friend"
+                });
+            } else if(buttonStatus == "Cancel Friend" || buttonStatus == "Remove Friend") {
+                const cancelFriend = await db.cancelFriend(sender, receiver);
+                console.log("cancelFriend", cancelFriend);
+                res.json({
+                    buttonText : "Add Friend"
+                });
             }
 
         } catch (err) {
