@@ -1,4 +1,5 @@
 import React from "react";
+import FriendButton from "./friendbutton";
 import axios from './axios';
 
 export default class OtherProfile extends React.Component {
@@ -26,7 +27,10 @@ export default class OtherProfile extends React.Component {
         return (
             <div className="bioeditor-container">
 
-                <div className="propic"> <img src = {this.state.url} /> </div>
+                <div className="propic">
+                    <img src = {this.state.url} />
+                    <FriendButton OtherProfileId={this.props.match.params.id}/>
+                </div>
 
                 <div className="nameandbio">
                     <h2> {this.state.firstname} {this.state.lastname} </h2>

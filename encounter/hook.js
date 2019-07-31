@@ -45,3 +45,23 @@ function Hello() {
 
 //function gets called everytime, new var created everytime, value depends on whatever value is currently,
 // but the function is consistent.
+
+// --------------------------hook part 2----------------------------------------
+
+function useLoginRegistrationSubmit()
+
+function useStatefulFields() {
+    const [fields, setFields] = useState({});
+    const handleChange = ({target}) => {
+        setFields({
+            ...fields,
+            [target.name]: target.value
+        });
+    };
+    return [fields, handleChange];
+}
+
+//... spread operator in object(clone object, and update the object)
+//[target.name] existing property.
+// hook can call other hooks, able to use hooks inside another hooks.
+//convenient way to share component between object

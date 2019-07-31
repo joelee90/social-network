@@ -122,6 +122,68 @@ app.get('/search/:val.json', async (req, res) => {
 
 // ----------------------------- part6 -----------------------------
 
+// ----------------------------- part7 -----------------------------
+
+//check the relationship between two people
+app.get('/users/:val.json', async (req, res) => {
+
+    const sender = req.session.userId;
+    const receiver = req.params.val;
+    console.log("sender", sender);
+    console.log("receiver", receiver);
+
+    const checkFriend = await db.checkFriendship(sender, receiver);
+    console.log("checkFriend", checkFriend);
+
+    if(checkFriend.rows == 0) {
+        res.json({
+            buttonText :"Add Friend"
+        });
+    }  else {
+        res.json({
+            buttonText :"Cancel Friend"
+        });
+    }
+
+});
+
+
+app.post('/users/:val.json', async (req, res) => {
+    try {
+
+        const sender = req.session.userId;
+        const receiver = req.params.val;
+        console.log("sender post", sender);
+        console.log("req.params post", req.params);
+
+        const addFriend = await db.makeFriendRequest(sender, receiver);
+        console.log("addFriend", addFriend);
+
+        console.log("req.body.button", req.body.button);
+        const buttonstatus = req.body.button;
+
+        try {
+            if(addFriend.rowCount == 0) {
+                const addFriend = await db.makeFriendRequest(sender, receiver);
+            }
+
+        } catch (err) {
+            console.log("err in post /users/:val.json", err);
+        }
+
+        // res.json({
+        //     buttonText :"Cancel Friend"
+        // });
+
+    } catch (err) {
+        console.log("err", err);
+    }
+
+});
+
+
+// ----------------------------- part7 -----------------------------
+
 app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
     if(req.file) {
         let url = config.s3Url + req.file.filename;

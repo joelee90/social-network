@@ -53,3 +53,31 @@ exports.getMatching = function getMatching(val) {
         [val + '%']
     );
 };
+
+exports.checkFriendship = function checkFriendship(sender_id, receiver_id) {
+    return db.query (
+        `SELECT * FROM friendships WHERE (sender_id=$1 AND receiver_id=$2) OR (sender_id=$2 AND receiver_id = $1)`,
+        [sender_id, receiver_id]
+    );
+};
+
+exports.makeFriendRequest = function makeFriendRequest(sender_id, receiver_id) {
+    return db.query(
+        `INSERT INTO friendships (sender_id, receiver_id) VALUES ($1, $2)`,
+        [sender_id, receiver_id]
+    );
+};
+
+exports.acceptFriendRequest = function acceptFriendRequest() {
+    return db.query(
+        `UPDATE friendships`,
+        []
+    );
+};
+
+exports.cancelFriend = function cancelFriend() {
+    return db.query(
+        `DELETE friendships`,
+        []
+    );
+};

@@ -204,13 +204,85 @@ first time mount - > ajaz req get 3 recently registered users, db query  SELECT 
 if user goes to users, they should be able to see new 5 register people. index.js make a ajax req and in findpeople.js axios to get the data from db and render back to the browser.
 
 - [x] click photo —> link to the person's bio
-- [ ] 
+
+  ---
+
+  
+
+<making your own hooks >
+
+To share functionality. ex) login and register. 
+
+<part 7>
+
+otherprofile.js : 
+
+<friendButton otherProfileId={this.props.matchparams.id} />
+
+Profile Owner
+
+Profile Viewer
+
+Click bnt -> change state
+
+Once become friends, both have 'end friendship' button. 
+
+4 states: 4 possible actions.
+
+Only "accept friend request" , no refusing.
+
+db represenation between users —> new table(friendship)
+
+Make a query to the 'friendships' table. If the rows are empty, viewer and receiver are not friends. If it is in pending state, able to cancel or accept the request.
+
+viewer is a receiver who accepts friend request.
+
+query - viewer owner have both ids in it(if no row)
+if yes row - 
+
+based on the db, click handler to the button
+
+btn - ajax - data from db - figure what to show - figure what to do
+
+queries : 4
+
+initial query - ajax req - (friends or not?) -
+
+-SELECT * FROM friendships WHERE (sender_id = $1  AND  receiver_id = $2) 
+OR (sender_id = $2 AND receiver_id = $1)
+
+-INSERT - making friend
+
+-UPDATE - accepting friend
+
+-DELETE - Cancel/end friend
+
+what to render based on the data. 
+
+no of routes : 2 -> get(), post()
+1 - making INSERT
+2 - accepting UPDATE
+3 -unfriend DELETE
+
+1 click handler - post - what to do depending on current state.
+
+look at the table, drop frequently, 
+
+testing -using two browsers.
+
+---------
+
+check to see if friends or not -> add friend btn -> ajax req -> INSERT 
+
+check to see if friends or not -> if pending -> update(accept)
+
+check to see if friends or not -> if friends -> DELETE
 
 
 
+componentDidMount - check the relation between the two people. 
 
-
-
+and then decide whether to show "add button" or "cancel button"
 
 
 
