@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ({ url, firstname, lastname, onClick }) {
+export default function ProfilePic ({ url, firstname, lastname, onClick }) {
     // url = url || "/images/default.png";
     return (
         <img src={url}

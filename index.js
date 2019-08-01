@@ -170,11 +170,11 @@ app.post('/users/:val.json', async (req, res) => {
 
         const sender = req.session.userId;
         const receiver = req.params.val;
-        console.log("sender post", sender);
-        console.log("req.params post", req.params);
+        // console.log("sender post", sender);
+        // console.log("req.params post", req.params);
 
         const buttonStatus = req.body.button;
-        console.log("req.body.button", req.body.button);
+        // console.log("req.body.button", req.body.button);
 
         try {
             if(buttonStatus == "Add Friend") {
@@ -200,10 +200,6 @@ app.post('/users/:val.json', async (req, res) => {
         } catch (err) {
             console.log("err in post /users/:val.json", err);
         }
-
-        // res.json({
-        //     buttonText :"Cancel Friend"
-        // });
 
     } catch (err) {
         console.log("err", err);

@@ -284,6 +284,38 @@ componentDidMount - check the relation between the two people.
 
 and then decide whether to show "add button" or "cancel button"
 
+---------
+
+- [ ] test for part 7 / bio edit
+- [ ] personal project outline(meetup & tripadvisor)
+- [ ] part 7 리뷰 accepted true/false 확인
+- [ ] 리액트읽어보기
+- [ ] bioedit -> edit/save btn should not be seen.
+
+——————————————Redux————————————————
+
+state: instance(0bject) - put anything want to keep track of. every component has its state. local state-component, global state-redux is keeping track of. 
+
+updatebio 
+
+reducers - functions that make the change to the state that happen. one function that can get big. one big function. when called(entire state object, action) figure what changes need to be made, returns a new object/state (needs to be new). reducers - pure function, may receive argument, returns output. does not dipend outside. predicatable. cannot mutate any object. replace the old state object with the new state object. 
+
+object.assign copies the properties of the object. 
+
+reduce
+
+Store : 
+
+edit/save btn should disappear when texture apprears(editing: true)
+
+editing:flase 
+
+
+
+
+
+
+
 
 
 
