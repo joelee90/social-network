@@ -56,24 +56,53 @@ if (process.env.NODE_ENV != 'production') {
 } else {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
-
-// ----------------------------- part4 -----------------------------
-
-app.post('/bio', async (req,res) => {
-    const bio = req.body.bio;
-    try {
-        await db.updateUserBio(bio, req.session.userId);
-        // console.log("bio", bio);
-        res.json({ bio });
-    } catch (err) {
-        console.log("err in app post /user", err);
+// ----------------------------- part1 -----------------------------
+app.get('/welcome', (req,res) => {
+    if(req.session.userId) {
+        res.redirect('/');
+    } else {
+        res.sendFile(__dirname + '/index.html');
     }
 });
 
-// ----------------------------- part4 -----------------------------
-
+app.post('/registration', async (req, res) => {
+    const { firstname, lastname, email, password } = req.body;
+    try {
+        let hash = await bc.hashPassword(password);
+        let id = await db.addNewUser(firstname, lastname, email, hash);
+        // console.log("id", id.rows[0].id);
+        req.session.userId = id.rows[0].id;
+        res.json({ success : true }); //cannot happen until above are done
+    } catch (err) {
+        res.json({ success : false });
+        console.log("err in POST /registration: ", err);
+    }
+});
+// ----------------------------- part1 -----------------------------
+// ----------------------------- part2 -----------------------------
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    db.checkEmail(email)
+        .then(val => {
+            if(val.rowCount == 0) {
+                res.json({ login:false });
+            }
+            bc.checkPassword(password, val.rows[0].password)
+                .then(match => {
+                    if(match) {
+                        req.session.userId = val.rows[0].id;
+                        res.json({ login:true });
+                    } else {
+                        res.json({ login:false });
+                    }
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+// ----------------------------- part2 ----------------------------
 // ----------------------------- part3 -----------------------------
-
 app.get('/user', async (req, res) => {
     let user = await db.getUserById(req.session.userId);
     user = user.rows[0];
@@ -84,8 +113,42 @@ app.get('/user', async (req, res) => {
     // console.log("user", user);
     res.json({user});
 }); // to see if user has image or not
-// ----------------------------- part3 -----------------------------
 
+app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
+    if(req.file) {
+        let url = config.s3Url + req.file.filename;
+        // console.log("url", url);
+        // console.log("req.session.userId", req.session.userId);
+        db.addUserImage(
+            url,
+            req.session.userId
+        ).then(data => {
+            // console.log("data", data.rows[0].url);
+            res.json({
+                data: data.rows[0].url,
+                success : true
+            });
+        })
+            .catch(function(err) {
+                console.log('err in post:',err);});
+    } else {
+        res.json({
+            success : false });
+    }
+});
+// ----------------------------- part3 -----------------------------
+// ----------------------------- part4 -----------------------------
+app.post('/bio', async (req,res) => {
+    const bio = req.body.bio;
+    try {
+        await db.updateUserBio(bio, req.session.userId);
+        // console.log("bio", bio);
+        res.json({ bio });
+    } catch (err) {
+        console.log("err in app post /user", err);
+    }
+});
+// ----------------------------- part4 -----------------------------
 // ----------------------------- part5 -----------------------------
 app.get("/api/user/:id", async (req, res) => {
     // console.log("req.params", req.params);
@@ -106,7 +169,6 @@ app.get("/api/user/:id", async (req, res) => {
     }
 }); //"api/user/:id"
 // ----------------------------- part5 -----------------------------
-
 // ----------------------------- part6 -----------------------------
 app.get('/api/users', async (req, res) => {
     const newUsers = await db.getNewUsers();
@@ -119,21 +181,16 @@ app.get('/search/:val.json', async (req, res) => {
     // console.log("searchUsers", searchUsers);
     res.json(searchUsers.rows);
 });
-
 // ----------------------------- part6 -----------------------------
-
 // ----------------------------- part7 -----------------------------
-
 //check the relationship between two people
 app.get('/users/:val.json', async (req, res) => {
-
     // console.log("sender", sender);
     // console.log("receiver", receiver);
     // console.log("checkFriend", checkFriend);
     // console.log("checkFriend.rows[0].accepted", checkFriend.rows[0]);
     // console.log("checkFriend.rows[0].sender_id", checkFriend.rows[0].sender_id);
     // console.log("checkFriend.rows[0].accepted", checkFriend.rows[0].accepted);
-
     try {
         const sender = req.session.userId;
         const receiver = req.params.val;
@@ -159,23 +216,16 @@ app.get('/users/:val.json', async (req, res) => {
     } catch (err) {
         console.log("err in get check friend", err);
     }
-
-
 });
 
-
 app.post('/users/:val.json', async (req, res) => {
-
     try {
-
         const sender = req.session.userId;
         const receiver = req.params.val;
         // console.log("sender post", sender);
         // console.log("req.params post", req.params);
-
         const buttonStatus = req.body.button;
         // console.log("req.body.button", req.body.button);
-
         try {
             if(buttonStatus == "Add Friend") {
                 const addFriend = await db.makeFriendRequest(sender, receiver);
@@ -196,92 +246,14 @@ app.post('/users/:val.json', async (req, res) => {
                     buttonText : "Add Friend"
                 });
             }
-
         } catch (err) {
             console.log("err in post /users/:val.json", err);
         }
-
     } catch (err) {
         console.log("err", err);
     }
-
 });
-
-
 // ----------------------------- part7 -----------------------------
-
-app.post('/upload', uploader.single('file'), s3.upload, function(req, res) {
-    if(req.file) {
-        let url = config.s3Url + req.file.filename;
-        // console.log("url", url);
-        // console.log("req.session.userId", req.session.userId);
-        db.addUserImage(
-            url,
-            req.session.userId
-        ).then(data => {
-            // console.log("data", data.rows[0].url);
-            res.json({
-                data: data.rows[0].url,
-                success : true
-            });
-        })
-            .catch(function(err) {
-                console.log('err in post:',err);});
-    } else {
-        res.json({
-            success : false });
-    }
-
-});
-// ----------------------------- part3 -----------------------------
-
-// ----------------------------- part1 -----------------------------
-app.get('/welcome', (req,res) => {
-    if(req.session.userId) {
-        res.redirect('/');
-    } else {
-        res.sendFile(__dirname + '/index.html');
-    }
-});
-
-app.post('/registration', async (req, res) => {
-    const { firstname, lastname, email, password } = req.body;
-    try {
-        let hash = await bc.hashPassword(password);
-        let id = await db.addNewUser(firstname, lastname, email, hash);
-        // console.log("id", id.rows[0].id);
-        req.session.userId = id.rows[0].id;
-        res.json({ success : true }); //cannot happen until above are done
-    } catch (err) {
-        res.json({ success : false });
-        console.log("err in POST /registration: ", err);
-    }
-});
-// ----------------------------- part1 -----------------------------
-
-// ----------------------------- part2 -----------------------------
-app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    db.checkEmail(email)
-        .then(val => {
-            if(val.rowCount == 0) {
-                res.json({ login:false });
-            }
-            bc.checkPassword(password, val.rows[0].password)
-                .then(match => {
-                    if(match) {
-                        req.session.userId = val.rows[0].id;
-                        res.json({ login:true });
-                    } else {
-                        res.json({ login:false });
-                    }
-                });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
-// ----------------------------- part2 -----------------------------
 app.get('*', function(req, res) {
     if(!req.session.userId) {
         res.redirect('/welcome');

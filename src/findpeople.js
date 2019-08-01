@@ -34,7 +34,7 @@ export default function FindPeople ({ id }) {
                 className = "inputforsearch"
                 style= {{margin: "20px", width: "500px"}}
                 type="text" name="searchbar"
-                placeholder="find your mates"
+                placeholder="who will be your next mate?"
                 onChange={ e => setVal(e.target.value)}
                 defaultValue = {val}
             />

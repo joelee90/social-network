@@ -286,11 +286,11 @@ and then decide whether to show "add button" or "cancel button"
 
 ---------
 
-- [ ] test for part 7 / bio edit
+- [x] test for part 7 / bio edit
 - [ ] personal project outline(meetup & tripadvisor)
-- [ ] part 7 리뷰 accepted true/false 확인
-- [ ] 리액트읽어보기
-- [ ] bioedit -> edit/save btn should not be seen.
+- [x] part 7 리뷰 accepted true/false 확인
+- [x] 리액트읽어보기
+- [x] bioedit -> edit/save btn should not be seen.
 
 ——————————————Redux————————————————
 
