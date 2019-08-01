@@ -1,4 +1,4 @@
--- DROP TABLE IF EXISTS information;
+DROP TABLE IF EXISTS information;
 
 CREATE TABLE information(
     id SERIAL PRIMARY KEY,

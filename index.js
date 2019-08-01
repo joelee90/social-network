@@ -145,7 +145,7 @@ app.get('/users/:val.json', async (req, res) => {
             });
         } else if(checkFriend.rows[0].accepted) {
             res.json({
-                buttonText :"Cancel Friend"
+                buttonText :"Remove Friend"
             });
         } else if(checkFriend.rows[0].sender_id == receiver) {
             res.json({
@@ -153,7 +153,7 @@ app.get('/users/:val.json', async (req, res) => {
             });
         } else {
             res.json({
-                buttonText :"Remove Friend"
+                buttonText :"Cancel Friend"
             });
         }
     } catch (err) {

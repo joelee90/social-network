@@ -310,6 +310,20 @@ edit/save btn should disappear when texture apprears(editing: true)
 
 editing:flase 
 
+kristen curry2@example.com
+
+avalon curry3@example.com
+
+
+
+"cancel" only show when both parties are on pending state of friendships
+
+"remove" should show on both parties when "accepted:true"
+
+problem : even when both parties are friends, showing "cancel" instead should show "remove"
+
+fixed it by index.js app.get by replacing the buttonText in else to "cancel friend"
+
 
 
 

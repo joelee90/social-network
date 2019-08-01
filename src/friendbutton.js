@@ -29,7 +29,6 @@ export default function FriendButton (props) {
         }
     }
 
-
     return (
         <div>
             <button className="addfriend-btn" onClick={submit}>{button}</button>
