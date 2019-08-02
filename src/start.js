@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import Welcome from './welcome';
 import App from './app';
 
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import reduxPromise from 'redux-promise';
+import reducers from './reducers';
+
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(reduxPromise)), );
+
 let elem;
 
 if(location.pathname == '/welcome') {
@@ -10,13 +18,14 @@ if(location.pathname == '/welcome') {
     elem = <Welcome />;
 } else {
     //loggedin
-    elem = <App />;
+    elem = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
 }
 
 ReactDOM.render(
     elem,
     document.querySelector('main')
 );
-
-// <App />; instead of <img>
-// <img src= "/images/line.png"  alt="Line" width = "300px" />;

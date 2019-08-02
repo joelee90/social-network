@@ -81,3 +81,15 @@ exports.cancelFriend = function cancelFriend(sender_id, receiver_id) {
         [sender_id, receiver_id]
     );
 };
+
+exports.getUsersdb = function getUsersdb(id) {
+    return db.query (
+        `SELECT information.id, firstname, lastname, url, accepted
+        FROM friendships
+        JOIN information
+        ON (accepted = false AND receiver_id = $1 AND sender_id = information.id)
+        OR (accepted = true AND receiver_id = $1 AND sender_id = information.id)
+        OR (accepted = true AND sender_id = $1 AND receiver_id = information.id)`,
+        [id]
+    );
+};

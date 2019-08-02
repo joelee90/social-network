@@ -254,6 +254,40 @@ app.post('/users/:val.json', async (req, res) => {
     }
 });
 // ----------------------------- part7 -----------------------------
+// ----------------------------- part8 -----------------------------
+app.get('/friendstree', async (req, res) => {
+    try {
+        const {rows} = await db.getUsersdb(req.session.userId);
+        console.log("rows", rows);
+
+        res.json(rows);
+
+    }catch(err) {
+        console.log("err in get friends", err);
+    }
+});
+
+// app.post('/friendsaccept:val.json', async (req, res) => {
+//     try {
+//         const accept = await db.acceptFriendRequest(req.session.userId);
+//         console.log("accept post", accept);
+//         res.json(accept);
+//     } catch (err) {
+//         console.log("err in post friendaccept", err);
+//     }
+// });
+//
+// app.post('/friendsend', async (req, res) => {
+//     try {
+//         const endthis = await db.cancelFriend(req.session.userId);
+//         console.log("end post", endthis);
+//         res.json(endthis);
+//     }catch (err) {
+//         console.log("err in post friendsend", err);
+//     }
+// });
+
+// ----------------------------- part8 -----------------------------
 app.get('*', function(req, res) {
     if(!req.session.userId) {
         res.redirect('/welcome');

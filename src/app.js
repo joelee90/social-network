@@ -5,6 +5,7 @@ import Profile from './profile';
 import Bioeditor from './bioeditor';
 import OtherProfile from './otherprofile';
 import FindPeople from './findpeople';
+import Friends from './friends';
 import axios from './axios';
 import { Route, BrowserRouter, Link } from 'react-router-dom';
 
@@ -32,6 +33,7 @@ export default class App extends React.Component {
                             <img src= "/images/line.png"  alt="Line" width = "200px" />
                             <Link style = {{textDecoration: "none"}} to = "/">My Profile</Link>
                             <Link style = {{textDecoration: "none"}} to = "/users">Find People</Link>
+                            <Link style = {{textDecoration: "none"}} to = "/friends">Friends</Link>
                             <div className="userimg">
                                 <ProfilePic
                                     url = {this.state.url}
@@ -70,6 +72,8 @@ export default class App extends React.Component {
 
                             <Route path = "/user/:id" component = {OtherProfile} />
                             <Route path = "/users" component = {FindPeople} />
+                            <Route path = "/friends" component = {Friends} />
+
                         </div>
                     </div>
                 </BrowserRouter>

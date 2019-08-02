@@ -8,7 +8,7 @@ input {
 
 .headerapp {
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 0.5fr;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
     align-items: center;
     place-self: center;
     justify-items: end;
@@ -227,4 +227,13 @@ background-color:#a5cc52;
 .addfriend-btn:active {
 position:relative;
 top:1px;
+}
+
+/* ------------------------------- friends ------------------------------- */
+.people {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin: 20px;
+    padding: 20px;
 }

@@ -20,7 +20,7 @@ export default function FindPeople ({ id }) {
         } else {
             (async () => {
                 const searchNew = await axios.get(`/search/${val}.json`);
-                // console.log("searchNew.data", searchNew.data);
+                console.log("searchNew.data", searchNew.data);
                 setUser(searchNew.data);
             })();
         }

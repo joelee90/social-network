@@ -324,31 +324,134 @@ problem : even when both parties are friends, showing "cancel" instead should sh
 
 fixed it by index.js app.get by replacing the buttonText in else to "cancel friend"
 
+managing application's state -> dealing with state changes that occur as application is used. 
+
+——————————————Part 8————————————————
+
+1. Server
+
+   1. 3 Routes are needed
+
+      1. route to get the list of friends and wannabes
+
+         1. should do one query to get  a combined list of friends and wannbes.
+
+            ```sql
+            SELECT user.id, firstname, lastname, url, accepted 
+            FROM frienships
+            JOIN information
+            ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
+            OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+            OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+            ```
+
+            one list that combines - component use use selector, 
+
+      2. routes for making a wannabe a friend (reuse)
+
+      3. route for ending a friendship (reuse)
+
+2. Client
+
+   * Start.js
+
+     - [ ] a ton of imports
+       - [x] `"createStore`", "`applyMiddle`"(redux)
+       - [x] "reduxPromise"(redux-promise)
+       - [x] "provider"(react-redux)
+       - [x] "composedWithDevTools" (redux-devtools-extentions)
+       - [x] your reducer (./reducers.js)
+     - [x] create the store with the redux promise middleware applied and redux devtools enabled
+     - [ ] wrap your <App/> in <Provider> and pass that to "ReactDOM.render", pass the store you created as a prop <Provider> 
+
+   * app.js
+
+     - [x] import new friends component
+     - [x] new route for friends component
+
+   * friends.js(new)
+
+     - [x] import 'useEffect'
+     - [x] import 'useDispatch' and 'useSelector'
+     - [ ] import three action creators
+     - [x] export a function component
+     - [ ] get a dispatch function by calling the "userDispatch" hook (exported by react-redux)
+     - [ ] use the 'useSelector' hook exported by react-redux to get two diffrent list of users
+       * one list  (friends) is the friends and wannabes from the redux state with all of the unaccepted friend requests filtered out
+       * one list (wannabes) is the friends and wannabes from the redux state with all of the accepted friend requests filtered out
+     - [ ] when the function mounts, (use 'useEffect' to know this) it should dispatch the action for getting the array of friends and wannabes.
+     - [ ] map the friends obtained by calling 'useSelector' into an array of JSX elements to render
+       * add a button or link with a click handler that dispatches the action for ending friendship
+     - [ ] map the wannabes obtained by calling 'useSelector' into an array of JSX elements to render.
+       * add a button or link with a click handler that dispatches the action for accepting  friend request
+
+   * actions.js(new)
+
+     * three action creaters are needed
+
+       * - [ ] one that creates the action for retrieving the list of friends and wananbes
+
+         * will have to attach the array retrieved from the server to the returned action so the reducer can put it into state
+
+       * - [ ] one that accepts a friend request
+
+         * after the ajax request, return a action that has the id of the user whose request was accepted attached
+
+       * - [ ] one that ends a friendship
+
+         * after the ajax request, return an action that has the id of the user whose friendship was ended attached
+
+     * All three action creators need to return a promise that is resolved with the appropriate action object.
+
+     ```javascript
+     export async ajaxThenAction() {
+       await axios.get('/some-route');
+       return {
+         type: 'SOME_ACTION'
+       }
+     }
+     ```
+
+   * reducers.js(new)
+
+     * export single function that expects to receive two arguments, a state object and an action
+
+       * use default argument syntax to make sure the state object is not undefined
+       * make sure this function _always_ returns a state object.
+
+     * the reducer needs three conditionals for three different action types
+
+       * the action for receiving friends
+
+         * create a new object that has all the same properties as the old state object except a new property is add (an array containing the list of friends and wannabes attached to the actions)
+
+         * ```javascript
+           if (action.type == 'RETRIEVE_FRIENDS_WANNABES') {
+           	return (
+           		...state,
+           		friendsWannabes: action.friendsWannabes
+           	)
+           }
+           ```
+
+         * 
+
+       * the action for accepting friend requests
+
+         * create a new object that has all the same properties as the old state object except the array of friends and wannabes is replaced with a new array that contains all the same objects as the old array except one is replaced with a new object that has all the same properties as the old object except its accepted property is set to true
+
+       * the action for unfriending
+
+         * create a new object that has all the same properties as the old state object except that the array of friends and wannabes is replaced with a new array that does not include the object whose id matches the id attached to the action
 
 
 
 
 
+const person = {
+    name: "jon",
+    age: "24"
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const {name} = person;
+const name = person.name;
