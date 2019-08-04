@@ -37,14 +37,13 @@ export default class Login extends React.Component {
     render() {
         return (
             <div>
-                <h2>Login</h2>
                 <div>
                     { this.state.error && <div className="error">Wrong Email and Password! Try again!</div> }
                 </div>
                 <form className="login-container">
                     <input type="text" name="email" placeholder="email" onChange={ e => this.handleChange(e) } required/>
                     <input type="password"  name="password" placeholder="password" onChange={ e => this.handleChange(e) } required/>
-                    <button onClick={ e => this.login(e) }>Login</button>
+                    <button className="regi-btn" onClick={ e => this.login(e) }>Login</button>
                 </form>
             </div>
         );

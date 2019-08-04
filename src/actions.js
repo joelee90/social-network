@@ -33,15 +33,3 @@ export async function endFriend (id) {
         id
     };
 }
-
-// export async function acceptFriend (id) {
-//     console.log("accept action!");
-//     const {data} = await axios.post(`/friendsaccept/${id}`,
-//         {button: "Accept Friend"}
-//     );
-//     console.log("data accept friend", data);
-//     return {
-//         type: "ACCEPT_FRIEND",
-//         id
-//     };
-// } before change

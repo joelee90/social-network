@@ -59,8 +59,10 @@ export default class Registration extends React.Component {
                     < br/>
                     <button className="regi-btn" variant="secondary" size="lg" onClick={ e => this.submit(e) }>Register</button>
                 </form>
-                <div>
-                    <h2> Already a member? <Link to = "/login" style = {{textDecoration: "none"}}>Log in</Link> </h2>
+                <div className="alreadymember">
+                    <div>
+                        <h2> Already a member? <Link to = "/login" style = {{textDecoration: "none"}}>Log in</Link> </h2>
+                    </div>
                 </div>
             </div>
         );

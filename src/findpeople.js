@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from './axios';
 
-export default function FindPeople ({ id }) {
+export default function FindPeople () {
     const [user, setUser] = useState();
     const [val, setVal] = useState();
     //value of the text field.
@@ -34,7 +34,7 @@ export default function FindPeople ({ id }) {
                 className = "inputforsearch"
                 style= {{margin: "20px", width: "500px"}}
                 type="text" name="searchbar"
-                placeholder="who will be your next mate?"
+                placeholder="search for new mates"
                 onChange={ e => setVal(e.target.value)}
                 defaultValue = {val}
             />

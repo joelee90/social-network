@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, acceptFriend, endFriend } from './actions';
@@ -12,12 +12,14 @@ export default function Friends () {
         )
     );
     console.log("wannabes from friends", wannabes);
+    //accepted friends filtered out(true 제외)
 
     const friends = useSelector(
         state => state.users && state.users.filter (
             user => user.accepted == true
         ));
     console.log("friends from friends", friends);
+    //unaccepted friends filtered out(false 제외)
 
     useEffect(
         () => {
@@ -31,10 +33,10 @@ export default function Friends () {
 
     return (
         <div>
-            <h1 style={{color:"blue", margin: "10px"}}>Your Mates are here!</h1>
+            <h1 style={{margin: "10px"}}>Your Mates are here!</h1>
             <div className="people">
                 <div className="wannabes">
-                    <h1 style={{color:"blue"}}>Future mates!</h1>
+                    <h1>Mate Wannabes</h1>
                     {wannabes && wannabes.map(
                         val => (
                             <div className="wannabesindi" key={val.id}>
@@ -49,7 +51,7 @@ export default function Friends () {
                     )}
                 </div>
                 <div className="friends">
-                    <h1 style={{color:"blue"}}>Mates!</h1>
+                    <h1>Your Mates</h1>
                     {friends && friends.map(
                         val => (
                             <div className="friendsindi" key={val.id}>
@@ -66,16 +68,3 @@ export default function Friends () {
         </div>
     );
 }
-
-// const users = useSelector(state => state.users);
-// console.log("users from friends", users);
-// <div className="allusers">
-//     {users && users.map(
-//         val => (
-//             <div key={val.id}>
-//                 <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
-//                 <h1> {val.firstname} {val.lastname} </h1>
-//             </div>
-//         )
-//     )}
-// </div>

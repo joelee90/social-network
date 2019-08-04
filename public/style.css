@@ -2,13 +2,43 @@
     font-family: 'Cantarell', sans-serif;
 }
 
-input {
-    font-size: 15px;
+.regi-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.regi-container input {
+    -webkit-appearance: none;
+    outline: none;
+    border: 0px;
+    outline-width: 0;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    padding-left: 50px;
+    letter-spacing: 0.1em;
+}
+
+.alreadymember {
+    display: flex;
+    justify-content: center;
+}
+
+.login-container input {
+    -webkit-appearance: none;
+    outline: none;
+    border: 0px;
+    outline-width: 0;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    padding-left: 50px;
+    letter-spacing: 0.1em;
 }
 
 .headerapp {
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
     align-items: center;
     place-self: center;
     justify-items: center;
@@ -157,7 +187,15 @@ input {
 /* ------------------------------- new -------------------------------------- */
 
 .inputforsearch {
-    font-size: 30px;
+    -webkit-appearance: none;
+    outline: none;
+    border: 0px;
+    outline-width: 0;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    padding-left: 50px;
+    letter-spacing: 0.1em;
 }
 
 .newpeople {

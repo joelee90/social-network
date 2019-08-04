@@ -33,7 +33,8 @@ export default class App extends React.Component {
                             <img src= "/images/line.png"  alt="Line" width = "200px" />
                             <Link style = {{textDecoration: "none"}} to = "/">My Profile</Link>
                             <Link style = {{textDecoration: "none"}} to = "/users">Find People</Link>
-                            <Link style = {{textDecoration: "none"}} to = "/friends">Friends</Link>
+                            <Link style = {{textDecoration: "none"}} to = "/friends">Mates</Link>
+                            <Link style = {{textDecoration: "none"}} to = "/logout">Logout</Link>
                             <div className="userimg">
                                 <ProfilePic
                                     url = {this.state.url}

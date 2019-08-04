@@ -57,6 +57,7 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 // ----------------------------- part1 -----------------------------
+
 app.get('/welcome', (req,res) => {
     if(req.session.userId) {
         res.redirect('/');
@@ -258,13 +259,15 @@ app.post('/users/:val.json', async (req, res) => {
 app.get('/friendstree', async (req, res) => {
     try {
         const {rows} = await db.getUsersdb(req.session.userId);
-        console.log("rows", rows);
+        // console.log("rows", rows);
         res.json(rows);
     } catch(err) {
         console.log("err in get friends", err);
     }
 });
+//rout to get the lis of friends and wannabes(query to get combined list)
 // ----------------------------- part8 -----------------------------
+
 app.get('*', function(req, res) {
     if(!req.session.userId) {
         res.redirect('/welcome');

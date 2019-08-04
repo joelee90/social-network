@@ -93,3 +93,4 @@ exports.getUsersdb = function getUsersdb(id) {
         [id]
     );
 };
+//query to get the combined list of friends(accepted=true) and wannabes(accepted=false). 
