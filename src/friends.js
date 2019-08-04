@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, acceptFriend, endFriend } from './actions';
-import FriendButton from "./friendbutton";
 
 export default function Friends () {
     const dispatch = useDispatch();
@@ -32,16 +31,19 @@ export default function Friends () {
 
     return (
         <div>
-            <h1 style={{color:"blue"}}>Your Mates are here!</h1>
+            <h1 style={{color:"blue", margin: "10px"}}>Your Mates are here!</h1>
             <div className="people">
                 <div className="wannabes">
                     <h1 style={{color:"blue"}}>Future mates!</h1>
                     {wannabes && wannabes.map(
                         val => (
-                            <div key={val.id}>
+                            <div className="wannabesindi" key={val.id}>
                                 <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
+                                <div>
+                                    <button className="addfriend-btn" onClick={e => dispatch(acceptFriend(val.id))}>Accept Friend</button>
+                                </div>
                                 <h1> {val.firstname} {val.lastname} </h1>
-                                <FriendButton OtherProfileId={val.id}/>
+
                             </div>
                         )
                     )}
@@ -50,10 +52,12 @@ export default function Friends () {
                     <h1 style={{color:"blue"}}>Mates!</h1>
                     {friends && friends.map(
                         val => (
-                            <div key={val.id}>
+                            <div className="friendsindi" key={val.id}>
                                 <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
+                                <div>
+                                    <button className="addfriend-btn" onClick={e => dispatch(endFriend(val.id))}>Remove Friend</button>
+                                </div>
                                 <h1> {val.firstname} {val.lastname} </h1>
-                                <FriendButton OtherProfileId={val.id}/>
                             </div>
                         )
                     )}

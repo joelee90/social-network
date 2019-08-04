@@ -12,7 +12,7 @@ export async function getUsers() {
 
 export async function acceptFriend (id) {
     console.log("accept action!");
-    const {data} = await axios.post(`/friendsaccept/${id}`,
+    const {data} = await axios.post(`/users/${id}.json`,
         {button: "Accept Friend"}
     );
     console.log("data accept friend", data);
@@ -24,7 +24,7 @@ export async function acceptFriend (id) {
 
 export async function endFriend (id) {
     console.log("end action!");
-    const {data} = await axios.post(`/friendsend/${id}`,
+    const {data} = await axios.post(`/users/${id}.json`,
         {button: "Remove Friend"}
     );
     console.log("data end friend", data);
@@ -33,3 +33,15 @@ export async function endFriend (id) {
         id
     };
 }
+
+// export async function acceptFriend (id) {
+//     console.log("accept action!");
+//     const {data} = await axios.post(`/friendsaccept/${id}`,
+//         {button: "Accept Friend"}
+//     );
+//     console.log("data accept friend", data);
+//     return {
+//         type: "ACCEPT_FRIEND",
+//         id
+//     };
+// } before change

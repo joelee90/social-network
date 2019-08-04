@@ -4,7 +4,7 @@ export default function ProfilePic ({ url, firstname, lastname, onClick }) {
     // url = url || "/images/default.png";
     return (
         <img src={url}
-            alt={`${firstname} ${lastname}`} onClick={ onClick } width = "100px"/>
+            alt={`${firstname} ${lastname}`} onClick={ onClick } width = "150px"/>
     );
 }
 

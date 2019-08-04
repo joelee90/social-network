@@ -11,14 +11,14 @@ input {
     grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
     align-items: center;
     place-self: center;
-    justify-items: end;
+    justify-items: center;
     margin: 20px;
     height: auto;
     padding: 20px;
 }
 
 .headerapp img {
-    border-radius: 50px;
+    border-radius: 150px;
 }
 
 .modal {
@@ -141,7 +141,7 @@ input {
     object-fit: cover;
     margin: 10px;
     padding: 10px;
-    border-radius: 50px;
+    border-radius: 150px;
 }
 
 .nameandbio {
@@ -149,8 +149,6 @@ input {
     margin: 10px;
     padding: 10px;
 }
-
-
 
 .bioedit {
     font-size: 20px;
@@ -231,9 +229,51 @@ top:1px;
 
 /* ------------------------------- friends ------------------------------- */
 .people {
+    border: solid 1px black;
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     margin: 20px;
     padding: 20px;
+}
+
+.wannabes{
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+}
+
+.wannabesindi {
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+}
+
+.wannabesindi img {
+    border-radius: 150px;
+}
+
+.friends {
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+}
+
+.friendsindi {
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+.friendsindi img {
+    border-radius: 150px;
 }

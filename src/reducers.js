@@ -16,11 +16,28 @@ export default function(state = {}, action) {
                     }
                     return {
                         ...val,
-                        end: action.type == 'END_FRIEND'
+                        accepted: true
                     };
                 }
             )
         };
     }
+
+    if(action.type == 'END_FRIEND') {
+        state = {
+            ...state,
+            users: state.users.map(
+                val => {
+                    if(val.id != action.id) {
+                        return val;
+                    }
+                    return {
+                        val: null
+                    };
+                }
+            )
+        };
+    }
+
     return state;
 }
