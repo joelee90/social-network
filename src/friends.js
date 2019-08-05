@@ -8,7 +8,7 @@ export default function Friends () {
 
     const wannabes = useSelector(
         state => state.users && state.users.filter(
-            user => user.accepted == false
+            user => user.accepted == false && user.id == user.sender_id
         )
     );
     console.log("wannabes from friends", wannabes);
@@ -20,6 +20,12 @@ export default function Friends () {
         ));
     console.log("friends from friends", friends);
     //unaccepted friends filtered out(false 제외)
+
+    const myPennding = useSelector(
+        state => state.users && state.users.filter (
+            user => user.accepted == false && user.id != user.sender_id
+        ));
+    console.log("pennding from my", myPennding);
 
     useEffect(
         () => {
@@ -40,12 +46,11 @@ export default function Friends () {
                     {wannabes && wannabes.map(
                         val => (
                             <div className="wannabesindi" key={val.id}>
-                                <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
+                                <Link to = {`/user/${val.id}`}><img className="mateimg" src = {val.url}/></Link>
                                 <div>
                                     <button className="addfriend-btn" onClick={e => dispatch(acceptFriend(val.id))}>Accept Friend</button>
                                 </div>
                                 <h1> {val.firstname} {val.lastname} </h1>
-
                             </div>
                         )
                     )}
@@ -55,9 +60,23 @@ export default function Friends () {
                     {friends && friends.map(
                         val => (
                             <div className="friendsindi" key={val.id}>
-                                <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
+                                <Link to = {`/user/${val.id}`}><img className="mateimg" src = {val.url}/></Link>
                                 <div>
                                     <button className="addfriend-btn" onClick={e => dispatch(endFriend(val.id))}>Remove Friend</button>
+                                </div>
+                                <h1> {val.firstname} {val.lastname} </h1>
+                            </div>
+                        )
+                    )}
+                </div>
+                <div className="pennding">
+                    <h1>My Wannabes</h1>
+                    {myPennding && myPennding.map(
+                        val => (
+                            <div className="penndingindi" key={val.id}>
+                                <Link to = {`/user/${val.id}`}><img className="mateimg" src = {val.url}/></Link>
+                                <div>
+                                    <button className="addfriend-btn" onClick={e => dispatch(endFriend(val.id))}>Cancel Friend Request</button>
                                 </div>
                                 <h1> {val.firstname} {val.lastname} </h1>
                             </div>

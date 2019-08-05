@@ -46,9 +46,9 @@ export default class Registration extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="regi-container-large">
                 <div>
-                    { this.state.error && <div className="error">Please try again!</div> }
+                    { this.state.error && <div className="error">Oops! Please try again!</div> }
                 </div>
                 <form className="regi-container">
                     <input type="text" name="firstname" placeholder="first name" onChange={ e => this.handleChange(e) } required />
@@ -56,12 +56,11 @@ export default class Registration extends React.Component {
                     <input type="text" name="email" placeholder="email" onChange={ e => this.handleChange(e) } required/>
                     <input type="password"  name="password" placeholder="password" onChange={ e => this.handleChange(e) } required/>
                     < br/>
-                    < br/>
                     <button className="regi-btn" variant="secondary" size="lg" onClick={ e => this.submit(e) }>Register</button>
                 </form>
                 <div className="alreadymember">
                     <div>
-                        <h2> Already a member? <Link to = "/login" style = {{textDecoration: "none"}}>Log in</Link> </h2>
+                        <h2 style = {{color: "#2A433B"}}> Already a member? <Link to = "/login" style = {{textDecoration: "none", color: "#18A558"}}>Log in</Link> </h2>
                     </div>
                 </div>
             </div>

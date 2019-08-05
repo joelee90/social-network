@@ -38,7 +38,7 @@ export default class Login extends React.Component {
         return (
             <div>
                 <div>
-                    { this.state.error && <div className="error">Wrong Email and Password! Try again!</div> }
+                    { this.state.error && <h2 style = {{color: "#2A433B"}} className="error">Wrong Email and Password! Try again!</h2> }
                 </div>
                 <form className="login-container">
                     <input type="text" name="email" placeholder="email" onChange={ e => this.handleChange(e) } required/>

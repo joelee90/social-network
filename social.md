@@ -455,3 +455,34 @@ const person = {
 
 const {name} = person;
 const name = person.name;
+
+-----------------------------------------socket io(server and client)-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

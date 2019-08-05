@@ -30,12 +30,14 @@ export default class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        <header style = {{borderBottom: "1px solid black"}} className="headerapp">
-                            <img src= "/images/line.png"  alt="Line" width = "200px" />
-                            <Link style = {{textDecoration: "none"}} to = "/">My Profile</Link>
-                            <Link style = {{textDecoration: "none"}} to = "/users">Find People</Link>
-                            <Link style = {{textDecoration: "none"}} to = "/friends">Mates</Link>
-                            <a style = {{textDecoration: "none"}} href = "/logout">Logout</a>
+                        <header className="headerapp">
+                            <img className = "headerlogo" src= "/images/line.png"  alt="Line" width = "100px" />
+                            <ul>
+                                <li><Link style = {{textDecoration: "none"}} to = "/">My Profile</Link></li>
+                                <li><Link style = {{textDecoration: "none"}} to = "/users">Find People</Link></li>
+                                <li><Link style = {{textDecoration: "none"}} to = "/friends">Mates</Link></li>
+                                <li><a style = {{textDecoration: "none"}} href = "/logout">Logout</a></li>
+                            </ul>
                             <div className="userimg">
                                 <ProfilePic
                                     url = {this.state.url}
