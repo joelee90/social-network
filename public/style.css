@@ -216,20 +216,26 @@ li a.active {
 
 .bioeditor-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 0.2fr;
+    grid-template-columns: 1fr 1fr;
     margin: 30px;
     padding: 30px;
     align-items: center;
-    justify-content: center;
-    width: 40em;
-    box-shadow: 8px 6px 26px 19px rgba(170,173,170,1);
+    place-self: center;
+    width: 30em;
+    color: black;
     border-radius: 40px;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
+}
+
+.propic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .propic img {
     object-fit: cover;
     border-radius: 150px;
-    box-shadow: 8px 6px 26px 19px rgba(170,173,170,1);
 }
 
 .nameandbio {
@@ -256,7 +262,7 @@ li a.active {
 }
 
 .newpeople {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     display: flex;
     flex-direction: row;
     margin: 10px;
@@ -265,7 +271,7 @@ li a.active {
 }
 
 .newpeoplein {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     display: flex;
     flex-direction: row;
     margin: 10px;
@@ -327,7 +333,6 @@ li a.active {
 
 /* ------------------------------- friends ------------------------------- */
 .people {
-    border: solid 1px #404217;
     border-radius: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -337,7 +342,7 @@ li a.active {
 }
 
 .wannabes{
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -346,7 +351,7 @@ li a.active {
 }
 
 .wannabesindi {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -359,7 +364,7 @@ li a.active {
 }
 
 .friends {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -368,7 +373,7 @@ li a.active {
 }
 
 .friendsindi {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -381,7 +386,7 @@ li a.active {
 }
 
 .pennding {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -390,7 +395,7 @@ li a.active {
 }
 
 .penndingindi {
-    border: solid 1px #404217;
+    box-shadow: 0px 1px 5px 10px #DCDCDC;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
