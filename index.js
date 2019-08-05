@@ -58,6 +58,11 @@ if (process.env.NODE_ENV != 'production') {
 }
 // ----------------------------- part1 -----------------------------
 
+app.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('/welcome');
+});
+
 app.get('/welcome', (req,res) => {
     if(req.session.userId) {
         res.redirect('/');

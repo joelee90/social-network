@@ -52,6 +52,7 @@ export default class Bioeditor extends React.Component {
                             rows="10"
                             onChange = {e => this.handleChange(e)}
                         />
+                        < br/>
                         <button onClick={ e => this.submit(e) }>Save</button>
                     </div>
                 )}

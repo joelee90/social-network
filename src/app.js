@@ -24,6 +24,7 @@ export default class App extends React.Component {
             data.user
         );
     }
+
     render() {
         return (
             <div>
@@ -34,7 +35,7 @@ export default class App extends React.Component {
                             <Link style = {{textDecoration: "none"}} to = "/">My Profile</Link>
                             <Link style = {{textDecoration: "none"}} to = "/users">Find People</Link>
                             <Link style = {{textDecoration: "none"}} to = "/friends">Mates</Link>
-                            <Link style = {{textDecoration: "none"}} to = "/logout">Logout</Link>
+                            <a style = {{textDecoration: "none"}} href = "/logout">Logout</a>
                             <div className="userimg">
                                 <ProfilePic
                                     url = {this.state.url}
