@@ -313,9 +313,11 @@ io.on('connection', async function(socket) {
     // socket.emit('chat', {
     //     message: textare.value
     // }); //client
+    const latestMsg = await db.getLastTenMessages();
+    console.log("latestMsg", latestMsg.rows);
+    io.emit('chatMessages', latestMsg.rows.reverse());
 
     socket.on('Send chat', async (data) => {
-
         let newMsg = await db.saveMessages(userId, data);
         let user = await db.getUserById(userId);
         console.log("data from chat.js", data);
@@ -325,16 +327,8 @@ io.on('connection', async function(socket) {
         const result = {...newMsg.rows[0], ...user.rows[0]};
         console.log("results", result);
 
-        io.sockets.emit('chatMessages', result);
+        io.emit('newChatMessage', result);
     });
-
-    try {
-        const latestMsg = await db.getLastTenMessages();
-        console.log("latestMsg", latestMsg.rows);
-        socket.emit('chatMessages', latestMsg.rows.reverse());
-    } catch (err) {
-        console.log("err in get last", err);
-    }
 
 
     // db.getLastTenMessages().then(data => {

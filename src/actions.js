@@ -34,18 +34,18 @@ export async function endFriend (id) {
     };
 }
 
-export async function chatMessages (messages) {
-    console.log("chatMesseges-show");
+export function chatMessages (data) {
+    console.log("10 chatMessages", data);
     return {
         type: "CHAT_MESSAGES",
-        messages
+        message: data
     };
 }
 
-export async function chatMessage (message) {
-    console.log("charMessage-send");
+export function newChatMessage (data) {
+    console.log("newChatMessage", data);
     return {
-        type: "CHAT_MESSAGE",
-        message
+        type: "NEW_CHAT_MESSAGE",
+        message: data
     };
 }

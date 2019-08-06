@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux';
 export default function Chat() {
 
     const chatMessages = useSelector(
-        state => state && state.chatMessages
+        state => state && state.message
     );
     console.log("last 10 messages", chatMessages);
-    const newMessages = useSelector(
-        state => state && state.chatMessages
-    );
-    console.log("newMessages", newMessages);
+
+    // const newMessage = useSelector(
+    //     state => state && state.message
+    // );
+    // console.log("newMessages", newMessage);
 
     const elemRef = useRef();
 
@@ -22,7 +23,7 @@ export default function Chat() {
         console.log("scroll height: ", elemRef.current.scrollHeight);
         console.log("client height: ", elemRef.current.clientHeight);
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, [newMessages]);
+    }, [chatMessages]);
     //auto scroll down when page loads.
 
     const keyCheck = (e) => {
@@ -44,11 +45,14 @@ export default function Chat() {
                     {chatMessages && chatMessages.map(
                         val => (
                             <div key={val.id}>
+                                <img style={{width: '100px'}} src = {val.url}/>
+                                < br/>
                                 {val.firstname}
                                 {val.lastname}
-                                <img style={{width: '100px'}} src = {val.url}/>
-                                {val.user_id}
+                                < br/>
                                 {val.message}
+                                < br/>
+                                {val.created_at}
                             </div>
                         )
                     )}

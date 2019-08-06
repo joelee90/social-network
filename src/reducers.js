@@ -39,23 +39,21 @@ export default function(state = {}, action) {
         };
     }
 
-    if(action.type == 'CHAT_MESSAGE') {
-        console.log("CHAT_MESSAGE");
-        return {
-            ...state,
-            chatMessages: [...state.chatMessages, action.message]
-        };
-    }
-
     if(action.type == 'CHAT_MESSAGES') {
         console.log("CHAT_MESSAGES");
-        return {
+        state = {
             ...state,
-            chatMessages: action.messages
+            message: action.message
         };
     }
 
-
+    if(action.type == 'NEW_CHAT_MESSAGE') {
+        console.log("NEW_CHAT_MESSAGE");
+        state = {
+            ...state,
+            message: [...state.message, action.message]
+        };
+    }
 
     return state;
 }
