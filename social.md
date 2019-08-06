@@ -458,7 +458,23 @@ const name = person.name;
 
 -----------------------------------------socket io(server and client)-----------------------------------------
 
+-----------------------------------------Additional Features-----------------------------------------
 
+1. Img - delete the image at the time replacing the image. 
+
+3. *new route chat/userid - chat with one user. or putting it into other person's profile. 
+
+   find userid(socket.id) io.socket.socket. if offline? put msg on db, and show the message when online again. add column in chat. 
+
+4. *wall post - leave msg on friend's wall. make people post other than text(img board), links - 
+
+   cheerio npm 
+
+5. *receiving notification when online, event that only happens when receives request. 
+
+6. see list of friend's from friend's profile. see friends of friends. random friends. 
+
+7. 
 
 
 

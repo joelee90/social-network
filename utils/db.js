@@ -95,3 +95,41 @@ exports.getUsersdb = function getUsersdb(id) {
     );
 };
 //query to get the combined list of friends(accepted=true) and wannabes(accepted=false).
+
+exports.saveMessages = function saveMessages(sender_id, message) {
+    return db.query (
+        `
+        INSERT INTO chats (sender_id, message) VALUES ($1, $2) RETURNING *
+        `, [sender_id, message]
+    );
+};
+
+exports.getLastTenMessages = function getLastTenMessages() {
+    return db.query (
+        `
+        SELECT chats.id, sender_id, chats.message, chats.created_at, information.firstname, information.lastname, information.url
+        FROM chats
+        LEFT JOIN information
+        ON information.id = chats.sender_id
+        ORDER BY chats.created_at DESC
+        LIMIT 10
+        `
+    );
+};
+
+
+// "SELECT chats.id, sender_id,
+// chats.message, chats.created_at,
+// users.first, users.last, users.image
+// FROM chats
+// LEFT JOIN users
+// ON users.id = chats.sender_id
+// ORDER BY chats.id DESC LIMIT 10"
+
+
+// SELECT chats.id, information.id as user_id, firstname, lastname, url, message, chats.created_at
+// FROM chats
+// LEFT JOIN information
+// ON information.id = chats.sender_id
+// ORDER BY chats.created_at DESC
+// LIMIT 10

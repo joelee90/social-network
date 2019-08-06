@@ -44,7 +44,6 @@ export default function FindPeople () {
                     <div className="newpeople" key={val.id}>
                         <div className="newpeoplein" >
                             <Link to = {`/user/${val.id}`}><img src = {val.url}/></Link>
-
                             <h1> {val.firstname} {val.lastname} </h1>
                         </div>
                     </div>

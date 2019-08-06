@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const compression = require('compression');
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: 'localhost:8080' });
+
 const db = require("./utils/db");
 const bc = require("./utils/bc");
 const cookieSession = require("cookie-session");
@@ -33,12 +37,25 @@ app.use(compression());
 app.use(express.static('./public'));
 app.use(require("body-parser").json());
 
-app.use(
-    cookieSession({
-        secret: "react is here.",
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+// ----------------------------- part9 -----------------------------
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+// ----------------------------- part9 -----------------------------
+
+// app.use(
+//     cookieSession({
+//         secret: "react is here.",
+//         maxAge: 1000 * 60 * 60 * 24 * 14
+//     })
+// );
+
 app.use(csurf());
 
 app.use(function(req, res, next){
@@ -281,6 +298,77 @@ app.get('*', function(req, res) {
     }
 }); //if no cookie(not registered) redirect to /welcome
 
-app.listen(8080, function() {
+// ----------------------------- part9 -----------------------------
+
+io.on('connection', async function(socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+
+    // onLineUsers[socket.id] = socket.request.session.userId;
+    //online user, check that id is on the list once. then emit event about user appearance.
+    let userId = socket.request.session.userId;
+    if (!userId) {
+        return socket.disconnect(true);
+    }
+
+    // socket.emit('chat', {
+    //     message: textare.value
+    // }); //client
+
+    socket.on('Send chat', async (data) => {
+
+        let newMsg = await db.saveMessages(userId, data);
+        let user = await db.getUserById(userId);
+        console.log("data from chat.js", data);
+        console.log("newMsg.rows", newMsg.rows);
+        console.log("user", user.rows);
+
+        const result = {...newMsg.rows[0], ...user.rows[0]};
+        console.log("results", result);
+
+        io.sockets.emit('chatMessages', result);
+    });
+
+    try {
+        const latestMsg = await db.getLastTenMessages();
+        console.log("latestMsg", latestMsg.rows);
+        socket.emit('chatMessages', latestMsg.rows.reverse());
+    } catch (err) {
+        console.log("err in get last", err);
+    }
+
+
+    // db.getLastTenMessages().then(data => {
+    //     console.log("data getLastTenMessages", data);
+    //     socket.emit('chatMessages', data.rows.reverse());
+    // }).catch(err => console.log(err));
+
+    socket.on('disconnect', function() {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+    });
+
+    // socket.on("My chat message!!!!!!!", msg => {
+    //     console.log(`
+    //         got msg from front-end.
+    //         my msg: ${msg}
+    //         `);
+    // });
+
+    // socket.on('newMessage', function(newMessage) {
+    //
+    //     // delete onOnlineUsers[socket.id];
+    //     //online user
+    //
+    //     console.log("This is new chat message", newMessage);
+    //     //figure out who sent message then make a db query to get info about
+    //     // that user. THEN -> create a new message object that matches the objects
+    //     //in the last 10 chat messages.
+    //     //emit that there is a new chat and pass the object.
+    //     //add this chat message to our db.
+    // });
+
+});
+// ----------------------------- part9 -----------------------------
+
+server.listen(8080, function() {
     console.log("What's Poppin 😎");
 });

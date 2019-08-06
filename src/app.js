@@ -6,6 +6,7 @@ import Bioeditor from './bioeditor';
 import OtherProfile from './otherprofile';
 import FindPeople from './findpeople';
 import Friends from './friends';
+import Chat from './chat';
 import axios from './axios';
 import { Route, BrowserRouter, Link } from 'react-router-dom';
 
@@ -36,6 +37,7 @@ export default class App extends React.Component {
                                 <li><Link style = {{textDecoration: "none"}} to = "/">My Profile</Link></li>
                                 <li><Link style = {{textDecoration: "none"}} to = "/users">Find People</Link></li>
                                 <li><Link style = {{textDecoration: "none"}} to = "/friends">Mates</Link></li>
+                                <li><Link style = {{textDecoration: "none"}} to = "/chat">Chat</Link></li>
                                 <li><a style = {{textDecoration: "none"}} href = "/logout">Logout</a></li>
                             </ul>
                             <div className="userimg">
@@ -77,6 +79,7 @@ export default class App extends React.Component {
                             <Route path = "/user/:id" component = {OtherProfile} />
                             <Route path = "/users" component = {FindPeople} />
                             <Route path = "/friends" component = {Friends} />
+                            <Route path = "/chat" component = {Chat} />
 
                         </div>
                     </div>

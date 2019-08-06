@@ -33,3 +33,19 @@ export async function endFriend (id) {
         id
     };
 }
+
+export async function chatMessages (messages) {
+    console.log("chatMesseges-show");
+    return {
+        type: "CHAT_MESSAGES",
+        messages
+    };
+}
+
+export async function chatMessage (message) {
+    console.log("charMessage-send");
+    return {
+        type: "CHAT_MESSAGE",
+        message
+    };
+}

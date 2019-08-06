@@ -410,3 +410,23 @@ li a.active {
 .mateimg {
     box-shadow: 8px 6px 26px 19px rgba(170,173,170,1);
 }
+
+.chat-container {
+    border: 1px solid black;
+    height: 300px;
+    width: 500px;
+    overflow-y: scroll;
+}
+
+.chat-body {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    place-self: center;
+}
+
+.chat {
+    border: 1px solid black;
+}
