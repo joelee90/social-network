@@ -28,7 +28,7 @@ export default function FindPeople () {
 
     return (
         <div className = "searched">
-            <h1>Find your mates :)</h1>
+            <h1 className="search-heading">Find your mates :)</h1>
 
             <input
                 className = "inputforsearch"

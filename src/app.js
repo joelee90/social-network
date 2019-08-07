@@ -8,6 +8,8 @@ import FindPeople from './findpeople';
 import Friends from './friends';
 import Chat from './chat';
 import axios from './axios';
+import Moment from './moment';
+import Wall from "./wall";
 import { Route, BrowserRouter, Link } from 'react-router-dom';
 
 export default class App extends React.Component {
@@ -51,7 +53,7 @@ export default class App extends React.Component {
                         </header>
 
                         <div>
-                            <Route exact path = "/" render = {props => {
+                            <Route exact path = "/" render = {() => {
                                 return (
                                     <Profile
                                         firstname = {this.state.firstname}

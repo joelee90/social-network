@@ -11,21 +11,21 @@ export default function Friends () {
             user => user.accepted == false && user.id == user.sender_id
         )
     );
-    console.log("wannabes from friends", wannabes);
+    // console.log("wannabes from friends", wannabes);
     //accepted friends filtered out(true 제외)
 
     const friends = useSelector(
         state => state.users && state.users.filter (
             user => user.accepted == true
         ));
-    console.log("friends from friends", friends);
+    // console.log("friends from friends", friends);
     //unaccepted friends filtered out(false 제외)
 
     const myPennding = useSelector(
         state => state.users && state.users.filter (
             user => user.accepted == false && user.id != user.sender_id
         ));
-    console.log("pennding from my", myPennding);
+    // console.log("pennding from my", myPennding);
 
     useEffect(
         () => {

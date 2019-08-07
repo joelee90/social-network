@@ -468,7 +468,7 @@ const name = person.name;
 
 4. *wall post - leave msg on friend's wall. make people post other than text(img board), links - 
 
-   cheerio npm 
+   cheerio npm - for sharing link and displaying small amount of the article.
 
 5. *receiving notification when online, event that only happens when receives request. 
 
@@ -476,7 +476,43 @@ const name = person.name;
 
 7. 
 
+server: emit on  -> save in db. when bringing back to everyone -> reducer ->
 
+emit - client
+
+on - server
+
+
+
+db saved . bring the chat so everyone can see. 
+
+-  db query to get the chat message.
+-  render it to the screen.
+-  when server wants send so everyone can see -> 
+
+server -> db -> socket.js -> action.js -> reducer.js -> redux -> chat.js
+
+chat message - send
+
+chat message - show
+
+after new message, returns an emtpy message.  when saving in newMsg, the data is converted
+
+db reading query -> should be able to include the new data
+
+chats
+
+id | sender_id | message | created_at
+
+information
+
+id | firstname | lastname | email | password | url | bio | created_at
+
+-----------------------------------------To do-----------------------------------------
+
+- [ ] created at - show time only
+- [ ] chat room height
+- [ ] gibberish search - search not found
 
 
 

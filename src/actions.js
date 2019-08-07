@@ -1,9 +1,9 @@
 import axios from './axios';
 
 export async function getUsers() {
-    console.log("action!!");
+    // console.log("action!!");
     const {data} = await axios.get('/friendstree');
-    console.log("data from action", data);
+    // console.log("data from action", data);
     return {
         type: "GET_USERS",
         users: data
@@ -11,11 +11,11 @@ export async function getUsers() {
 }
 
 export async function acceptFriend (id) {
-    console.log("accept action!");
+    // console.log("accept action!");
     const {data} = await axios.post(`/users/${id}.json`,
         {button: "Accept Friend"}
     );
-    console.log("data accept friend", data);
+    // console.log("data accept friend", data);
     return {
         type: "ACCEPT_FRIEND",
         id
@@ -23,11 +23,11 @@ export async function acceptFriend (id) {
 }
 
 export async function endFriend (id) {
-    console.log("end action!");
+    // console.log("end action!");
     const {data} = await axios.post(`/users/${id}.json`,
         {button: "Remove Friend"}
     );
-    console.log("data end friend", data);
+    // console.log("data end friend", data);
     return {
         type: "END_FRIEND",
         id
@@ -35,7 +35,7 @@ export async function endFriend (id) {
 }
 
 export function chatMessages (data) {
-    console.log("10 chatMessages", data);
+    // console.log("10 chatMessages", data);
     return {
         type: "CHAT_MESSAGES",
         message: data
@@ -43,7 +43,7 @@ export function chatMessages (data) {
 }
 
 export function newChatMessage (data) {
-    console.log("newChatMessage", data);
+    // console.log("newChatMessage", data);
     return {
         type: "NEW_CHAT_MESSAGE",
         message: data

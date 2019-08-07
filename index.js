@@ -1,10 +1,8 @@
 const express = require('express');
 const app = express();
 const compression = require('compression');
-
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { origins: 'localhost:8080' });
-
 const db = require("./utils/db");
 const bc = require("./utils/bc");
 const cookieSession = require("cookie-session");
@@ -13,6 +11,7 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require('./s3');
 const config = require('./config');
+const moment = require("moment");
 const csurf = require('csurf'); //use after the cookie
 
 const diskStorage = multer.diskStorage({
@@ -310,42 +309,34 @@ io.on('connection', async function(socket) {
         return socket.disconnect(true);
     }
 
-    // socket.emit('chat', {
-    //     message: textare.value
-    // }); //client
     const latestMsg = await db.getLastTenMessages();
-    console.log("latestMsg", latestMsg.rows);
+    // console.log("latestMsg", latestMsg.rows);
+    latestMsg.rows.forEach(val => {
+        val.created_at = moment(val.created_at, moment.ISO_8601).fromNow();
+    });
     io.emit('chatMessages', latestMsg.rows.reverse());
 
     socket.on('Send chat', async (data) => {
         let newMsg = await db.saveMessages(userId, data);
         let user = await db.getUserById(userId);
-        console.log("data from chat.js", data);
-        console.log("newMsg.rows", newMsg.rows);
-        console.log("user", user.rows);
+        // console.log("data from chat.js", data);
+        // console.log("newMsg.rows", newMsg.rows);
+        // console.log("user", user.rows);
+
+        newMsg.rows[0].created_at = moment(
+            newMsg.rows[0].created_at,
+            moment.ISO_8601
+        ).fromNow();
 
         const result = {...newMsg.rows[0], ...user.rows[0]};
-        console.log("results", result);
+        // console.log("results", result);
 
         io.emit('newChatMessage', result);
     });
 
-
-    // db.getLastTenMessages().then(data => {
-    //     console.log("data getLastTenMessages", data);
-    //     socket.emit('chatMessages', data.rows.reverse());
-    // }).catch(err => console.log(err));
-
     socket.on('disconnect', function() {
         console.log(`socket with the id ${socket.id} is now disconnected`);
     });
-
-    // socket.on("My chat message!!!!!!!", msg => {
-    //     console.log(`
-    //         got msg from front-end.
-    //         my msg: ${msg}
-    //         `);
-    // });
 
     // socket.on('newMessage', function(newMessage) {
     //
@@ -362,6 +353,47 @@ io.on('connection', async function(socket) {
 
 });
 // ----------------------------- part9 -----------------------------
+// ----------------------------- wall -----------------------------
+
+app.get('/userwall/:id', async (req, res) => {
+    console.log("req.params.id get", req.params.id);
+    // let wallpost = db.getWallPost(req.params.id);
+    // console.log("wallpost", wallpost);
+    // res.json(wallpost);
+
+    // console.log("req.params.id get", req.params.id);
+    // try {
+    //     let data = await db.getWallPost(req.params.id);
+    //     console.log("data index.js", data);
+    //     res.json(data);
+    // } catch (err) {
+    //     console.log("err", err);
+    // }
+});
+
+app.post('/userwall/:id', async (req, res) => {
+    console.log("req.params.id post", req.params.id);
+    const sender = req.session.userId;
+    // const { id } = req.params;
+    const receiver = req.params.id;
+    const wall = req.body.wall;
+    console.log("wall", wall);
+
+    try {
+        await db.addWallPost(sender, receiver, wall);
+        res.json(wall);
+    } catch(err){
+        console.log("err in app post /user", err);
+    }
+});
+
+// app.get('/search/:val.json', async (req, res) => {
+//     const searchUsers = await db.getMatching(req.params.val);
+//     // console.log("searchUsers", searchUsers);
+//     res.json(searchUsers.rows);
+// });
+
+// ----------------------------- wall -----------------------------
 
 server.listen(8080, function() {
     console.log("What's Poppin 😎");

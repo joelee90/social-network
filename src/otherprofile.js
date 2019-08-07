@@ -1,5 +1,6 @@
 import React from "react";
 import FriendButton from "./friendbutton";
+import Wall from "./wall";
 import axios from './axios';
 
 export default class OtherProfile extends React.Component {
@@ -21,6 +22,14 @@ export default class OtherProfile extends React.Component {
         } catch (err) {
             console.log("err other profile", err);
         }
+
+        try {
+            const {id} = this.props.match.params;
+            const {data} = await axios.get(`/userwall/${id}`);
+            // console.log(data);
+        }catch (err) {
+            console.log("err in wall", err);
+        }
     }
 
     render() {
@@ -36,6 +45,7 @@ export default class OtherProfile extends React.Component {
                         <div className="bioedit"> {this.state.bio} </div>
                     </div>
                 </div>
+                <Wall OtherId = {this.props.match.params.id}/>
             </div>
         );
     }

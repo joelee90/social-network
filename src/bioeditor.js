@@ -68,8 +68,6 @@ export default class Bioeditor extends React.Component {
                     <button className="regi-btn" onClick = {() => this.setState({ editing:true })}> Add your bio! </button>
                 )}
 
-
-
             </div>
         );
     }

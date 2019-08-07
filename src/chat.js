@@ -7,7 +7,7 @@ export default function Chat() {
     const chatMessages = useSelector(
         state => state && state.message
     );
-    console.log("last 10 messages", chatMessages);
+    // console.log("last 10 messages", chatMessages);
 
     // const newMessage = useSelector(
     //     state => state && state.message
@@ -17,20 +17,20 @@ export default function Chat() {
     const elemRef = useRef();
 
     useEffect(() => {
-        console.log("chat hooks mounted");
-        console.log("elemRef", elemRef);
-        console.log("scroll top: ", elemRef.current.scrollTop);
-        console.log("scroll height: ", elemRef.current.scrollHeight);
-        console.log("client height: ", elemRef.current.clientHeight);
+        // console.log("chat hooks mounted");
+        // console.log("elemRef", elemRef);
+        // console.log("scroll top: ", elemRef.current.scrollTop);
+        // console.log("scroll height: ", elemRef.current.scrollHeight);
+        // console.log("client height: ", elemRef.current.clientHeight);
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, [chatMessages]);
     //auto scroll down when page loads.
 
     const keyCheck = (e) => {
-        console.log("e.target.val", e.target.value);
-        console.log("e.key", e.key);
+        // console.log("e.target.val", e.target.value);
+        // console.log("e.key", e.key);
         if(e.key === "Enter") {
-            console.log("Enter pressed!");
+            // console.log("Enter pressed!");
             e.preventDefault();
             socket.emit('Send chat', e.target.value);
             e.target.value = "";
@@ -40,28 +40,28 @@ export default function Chat() {
     return (
         <div className = "chat-body">
             <div className = "chat">
-                <h1>Chat room</h1>
+                <h1>Live Chat</h1>
                 <div className="chat-container" ref = { elemRef } >
                     {chatMessages && chatMessages.map(
                         val => (
-                            <div key={val.id}>
-                                <img style={{width: '100px'}} src = {val.url}/>
-                                < br/>
-                                {val.firstname}
-                                {val.lastname}
-                                < br/>
-                                {val.message}
-                                < br/>
-                                {val.created_at}
+                            <div className="chat-in" key={val.id}>
+                                <div className="chat-person">
+                                    <img src = {val.url}/>
+                                    {val.firstname}
+                                    < br/>
+                                    <span className="time">{val.created_at}</span>
+                                </div>
+                                <span className="chat-msg">{val.message}</span>
                             </div>
                         )
                     )}
-                    <textarea
-                        placeholder = "Add your message here"
-                        onKeyDown = { keyCheck }
-                    >
-                    </textarea>
                 </div>
+                <textarea
+                    placeholder = "Add your message here"
+                    onKeyDown = { keyCheck }
+                    style ={{width: "40vw", height: "8vh"}}
+                >
+                </textarea>
             </div>
         </div>
     );
