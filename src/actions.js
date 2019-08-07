@@ -49,3 +49,20 @@ export function newChatMessage (data) {
         message: data
     };
 }
+
+
+export function newWallPost (data) {
+    console.log("newWallPost", data);
+    return {
+        type: "NEW_WALL_POST",
+        post: data
+    };
+}
+
+export function oldWallPost (data) {
+    console.log("oldWallPost", data);
+    return {
+        type: "OLD_WALL_POST",
+        post: data
+    };
+}

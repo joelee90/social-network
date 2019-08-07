@@ -1,48 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { socket } from './socket';
 import { useSelector } from 'react-redux';
-import axios from './axios';
+// import axios from './axios';
 
 export default function Wall (props) {
 
-    // const wallPosts = useSelector(
-    //     state => state && state.
-    // );
-    // console.log("wallPosts wall.js", wallPosts);
+    console.log("props", props.OtherId);
+    let wallId = props.OtherId;
 
+    const wallPosts = useSelector(
+        state => state && state.post
+    );
+    console.log("wallPosts wall.js", wallPosts);
+
+    const elemRef = useRef();
 
     useEffect(() => {
         console.log("mounted!");
         // async () => {
         // const list =  await axios.get(`/userwall/${props.OtherId}`);
-        const list = axios.get(`/userwall/${props.OtherId}`);
-        console.log("data get", list);
+        // const list = axios.get(`/userwall/${props.OtherId}`);
+        // console.log("data get", list);
         // };
-    }, []);
+        elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
+    }, [wallPosts]);
 
-    async function keyCheck (e) {
-
+    const keyCheck = (e) => {
         if(e.key === "Enter") {
             e.preventDefault();
             console.log(e.target.value);
-
-            try {
-                const wall = await axios.post(`/userwall/${props.OtherId}`, {
-                    wall: e.target.value
-                });
-                console.log("wall post", wall);
-                // e.target.value = "";
-            } catch (err) {
-                console.log("err in keycheck", err);
-            }
+            socket.emit('wallpost', e.target.value, {
+                receiver_id: wallId
+            });
+            e.target.value = "";
         }
-    }
-
+    };
 
     return (
         <div>
             <h1>This is wall</h1>
-
-
+            <div style={{height: "40vh"}} ref = { elemRef }>
+                {wallPosts && wallPosts.map(
+                    val => (
+                        <div className="wallpost" key={val.id}>
+                            {val.wall}
+                            {val.sender_id_wall}
+                            
+                        </div>
+                    )
+                )}
+            </div>
             <textarea
                 placeholder = "Leave a message"
                 onKeyDown = { keyCheck }
@@ -54,10 +61,14 @@ export default function Wall (props) {
 
 
 }
-// {wallPosts && wallPosts.map (
-//     val => (
-//         <div className="wallpost" key={val.id}>
-//             {val.wall}
-//         </div>
-//     )
-// )}
+
+
+// try {
+//     const wall = await axios.post(`/userwall/${props.OtherId}`, {
+//         wall: e.target.value
+//     });
+//     console.log("wall post", wall);
+//     // e.target.value = "";
+// } catch (err) {
+//     console.log("err in keycheck", err);
+// }

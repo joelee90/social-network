@@ -50,3 +50,4 @@ export default class OtherProfile extends React.Component {
         );
     }
 }
+// <Wall OtherId = {this.props.match.params.id}/>

@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import { chatMessages, newChatMessage } from './actions';
+import { chatMessages, newChatMessage, newWallPost, oldWallPost } from './actions';
 // console.log('yo');
 
 export let socket;
@@ -24,6 +24,19 @@ export const init = store => {
         )
     );
 
+    socket.on(
+        'newWallPost',
+        val => store.dispatch(
+            newWallPost(val)
+        )
+    );
+
+    socket.on(
+        'oldWallPost',
+        val => store.dispatch(
+            oldWallPost(val)
+        )
+    );
 };
 
 // socket.on('newPlayer', () => console.log('New Player'));

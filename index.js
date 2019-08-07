@@ -305,6 +305,10 @@ io.on('connection', async function(socket) {
     // onLineUsers[socket.id] = socket.request.session.userId;
     //online user, check that id is on the list once. then emit event about user appearance.
     let userId = socket.request.session.userId;
+    console.log("userId", userId);
+
+
+
     if (!userId) {
         return socket.disconnect(true);
     }
@@ -322,7 +326,6 @@ io.on('connection', async function(socket) {
         // console.log("data from chat.js", data);
         // console.log("newMsg.rows", newMsg.rows);
         // console.log("user", user.rows);
-
         newMsg.rows[0].created_at = moment(
             newMsg.rows[0].created_at,
             moment.ISO_8601
@@ -330,9 +333,39 @@ io.on('connection', async function(socket) {
 
         const result = {...newMsg.rows[0], ...user.rows[0]};
         // console.log("results", result);
-
         io.emit('newChatMessage', result);
     });
+
+    // ----------------------------------wall---------------------------------------
+
+    socket.on('wallpost', async (val, id) => {
+        console.log(`post from ${userId} to ${id.receiver_id}: ${val}`);
+        // const checkFriend = await db.checkFriendship(userId, id.receiver_id);
+
+        let newPost = await db.addWallPost(userId, id.receiver_id, val);
+        console.log("newPost.rows", newPost.rows);
+        io.emit('newWallPost', newPost);
+
+        //check if two are friends
+        // if(checkFriend.rows[0].accepted) {
+        //     //able to write on wall
+        // } else {
+        //     //not able to write on wall
+        // }
+
+        console.log("id.receiver_id", id.receiver_id);
+
+        let getWallPost = await db.getWallPost(id.receiver_id);
+        console.log("getWallPost", getWallPost.rows);
+
+        io.emit('oldWallPost', getWallPost.rows);
+
+        getWallPost.rows.forEach(wallpost => {
+            wallpost.created_at = moment(wallpost.created_at, moment.ISO_8601).fromNow();
+        });
+    });
+
+    // ----------------------------------wall---------------------------------------
 
     socket.on('disconnect', function() {
         console.log(`socket with the id ${socket.id} is now disconnected`);
@@ -355,43 +388,38 @@ io.on('connection', async function(socket) {
 // ----------------------------- part9 -----------------------------
 // ----------------------------- wall -----------------------------
 
-app.get('/userwall/:id', async (req, res) => {
-    console.log("req.params.id get", req.params.id);
-    // let wallpost = db.getWallPost(req.params.id);
-    // console.log("wallpost", wallpost);
-    // res.json(wallpost);
-
-    // console.log("req.params.id get", req.params.id);
-    // try {
-    //     let data = await db.getWallPost(req.params.id);
-    //     console.log("data index.js", data);
-    //     res.json(data);
-    // } catch (err) {
-    //     console.log("err", err);
-    // }
-});
-
-app.post('/userwall/:id', async (req, res) => {
-    console.log("req.params.id post", req.params.id);
-    const sender = req.session.userId;
-    // const { id } = req.params;
-    const receiver = req.params.id;
-    const wall = req.body.wall;
-    console.log("wall", wall);
-
-    try {
-        await db.addWallPost(sender, receiver, wall);
-        res.json(wall);
-    } catch(err){
-        console.log("err in app post /user", err);
-    }
-});
-
-// app.get('/search/:val.json', async (req, res) => {
-//     const searchUsers = await db.getMatching(req.params.val);
-//     // console.log("searchUsers", searchUsers);
-//     res.json(searchUsers.rows);
+// app.get('/userwall/:id', async (req, res) => {
+//     // console.log("req.params.id get", req.params.id);
+//     // let wallpost = db.getWallPost(req.session.userId);
+//     // console.log("wallpost", wallpost);
+//     // res.json(wallpost);
+//
+//     // console.log("req.params.id get", req.params.id);
+//     // try {
+//     //     let data = await db.getWallPost(req.params.id);
+//     //     console.log("data index.js", data);
+//     //     res.json(data);
+//     // } catch (err) {
+//     //     console.log("err", err);
+//     // }
 // });
+
+// app.post('/userwall/:id', async (req, res) => {
+//     console.log("req.params.id post", req.params.id);
+//     const sender = req.session.userId;
+//     // const { id } = req.params;
+//     const receiver = req.params.id;
+//     const wall = req.body.wall;
+//     console.log("wall", wall);
+//
+//     try {
+//         await db.addWallPost(sender, receiver, wall);
+//         res.json(wall);
+//     } catch(err){
+//         console.log("err in app post /user", err);
+//     }
+// });
+
 
 // ----------------------------- wall -----------------------------
 

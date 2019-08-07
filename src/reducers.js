@@ -55,5 +55,22 @@ export default function(state = {}, action) {
         };
     }
 
+    if(action.type == 'NEW_WALL_POST') {
+        console.log("NEW_WALL_POST");
+        state = {
+            ...state,
+            post: [...state.post, action.post]
+        };
+    }
+
+    if(action.type == 'OLD_WALL_POST') {
+        console.log("OLD_WALL_POST");
+
+        state = {
+            ...state,
+            post: action.post
+        };
+    }
+
     return state;
 }

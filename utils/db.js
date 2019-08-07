@@ -137,7 +137,7 @@ exports.addWallPost = function addWallPost (sender_id, receiver_id, wall) {
 exports.getWallPost = function getWallPost (id) {
     return db.query (
         `
-        SELECT sender_id_wall, receiver_id_wall, wall FROM wall WHERE receiver_id_wall = $1
-        `, [id]
+        SELECT sender_id_wall, receiver_id_wall, wall FROM wall WHERE receiver_id_wall=$1
+        `,[id]
     );
 };

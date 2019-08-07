@@ -510,9 +510,32 @@ id | firstname | lastname | email | password | url | bio | created_at
 
 -----------------------------------------To do-----------------------------------------
 
-- [ ] created at - show time only
-- [ ] chat room height
-- [ ] gibberish search - search not found
+- [x] created at - show time only
+- [x] chat room height
+
+Wall Post
+
+- [ ] check if sender(loggedinuser) and receiver(otherpeople) are friends.
+
+- [ ] if friends : show the wall post where 
+
+- [ ] like a live chat but only edit possible when they are friends.
+
+  loggedin & otherprofile - db table true - > post possible
+
+  above not false & no db -> post not possible.
+
+
+
+what to show : everyone's post can be seen . but only within that user(
+
+only show = receiver _id_wall (what the person received)
+
+
+
+
+
+
 
 
 
