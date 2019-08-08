@@ -15,9 +15,11 @@ export default function Wall (props) {
 
 
 
-    const elemRef = useRef();
+    const  elemRef = useRef();
+
 
     useEffect(() => {
+        console.log(elemRef);
         console.log("mounted!");
         socket.emit('allwallpost', wallId);
         // async () => {
@@ -28,12 +30,23 @@ export default function Wall (props) {
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, []);
 
+    useEffect(() => {
+        console.log("mountedee!");
+        // async () => {
+        // const list =  await axios.get(`/userwall/${props.OtherId}`);
+        // const list = axios.get(`/userwall/${props.OtherId}`);
+        // console.log("data get", list);
+        // };
+        elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
+    }, [wallPosts]);
+
     const keyCheck = (e) => {
         if(e.key === "Enter") {
             e.preventDefault();
             console.log(e.target.value);
             socket.emit('wallpost', e.target.value, {
                 receiver_id: wallId
+                // wallOwner: 23
             });
             e.target.value = "";
         }
@@ -41,29 +54,31 @@ export default function Wall (props) {
 
     return (
         <div>
-            <h1>This is wall</h1>
-            <div ref = { elemRef }>
+            <h2>Leave a post</h2>
+            <textarea
+                placeholder = "Leave a post for your mate"
+                onKeyDown = { keyCheck }
+                style ={{width: "40vw", height: "8vh"}}
+                className="textarea"
+            />
+            <div className="wall-post-large" ref = { elemRef }>
+
                 {wallPosts && wallPosts.map(
                     val => (
                         <div className="wallpost" key={val.id}>
-                            {val.wall}
-                            {val.firstname}
-                            {val.lastname}
-                            {val.sender_id_wall}
+                            <img style={{width: "50px"}} src={val.url}/>
+                            < br/>
+                            {val.firstname} {""}
+                            {val.lastname} < br/>
+                            <div>{val.wall}</div>
+                            {val.created_at}
                         </div>
                     )
                 )}
+                
             </div>
-            <textarea
-                placeholder = "Leave a message"
-                onKeyDown = { keyCheck }
-                style ={{width: "40vw", height: "8vh"}}
-            />
         </div>
     );
-
-
-
 }
 
 

@@ -531,7 +531,12 @@ what to show : everyone's post can be seen . but only within that user(
 
 only show = receiver _id_wall (what the person received)
 
+- [ ] use receiver's id(wall component) in db query ,  to only show what the receiver has received.
 
+- [ ] problem - the post is being shared by everyone....
+- [ ] where to put WHERE clause in the joined table.
+
+and after it's done - check if friends, and textarea only available between the friends.
 
 
 

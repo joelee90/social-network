@@ -480,3 +480,16 @@ li a.active {
 .time {
     font-size: 10px;
 }
+
+.wall-post-large {
+    height: 50vh;
+    border-radius: 10px;
+    background-color: #D6D6D6;
+    overflow-y: scroll;
+}
+
+.textarea {
+    border-radius: 10px;
+    font-size: 15px;
+    border: none;
+}

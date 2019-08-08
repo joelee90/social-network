@@ -299,6 +299,8 @@ app.get('*', function(req, res) {
 
 // ----------------------------- part9 -----------------------------
 
+let wallPost = [];
+
 io.on('connection', async function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
 
@@ -306,8 +308,7 @@ io.on('connection', async function(socket) {
     //online user, check that id is on the list once. then emit event about user appearance.
     let userId = socket.request.session.userId;
     console.log("userId", userId);
-
-
+    let socketId = socket.id;
 
     if (!userId) {
         return socket.disconnect(true);
@@ -338,15 +339,30 @@ io.on('connection', async function(socket) {
 
     // ----------------------------------wall---------------------------------------
 
-    socket.on('allwallpost', async () => {
-        const getWallPost = await db.getWallPost();
-        console.log("getWallPost", getWallPost.rows);
+    wallPost.push({
+        userId,
+        socketId: socket.id
+    });
+    console.log("wallPost", wallPost);
 
-        io.emit('oldWallPost', getWallPost.rows.reverse());
+
+    socket.on('allwallpost', async (id) => {
+        console.log("receiver", id);
+        const getWallPost = await db.getWallPost(id);
+        // console.log("getWallPost", getWallPost.rows);
 
         getWallPost.rows.forEach(wallpost => {
             wallpost.created_at = moment(wallpost.created_at, moment.ISO_8601).fromNow();
         });
+
+        let unique = wallPost.filter(
+            val => val.userId == id
+        );
+        console.log("unique", unique);
+
+        io.emit('oldWallPost', getWallPost.rows);
+        // io.to('oldWallPost', );
+
     });
 
     socket.on('wallpost', async (val, id) => {
@@ -356,8 +372,13 @@ io.on('connection', async function(socket) {
         let newPost = await db.addWallPost(userId, id.receiver_id, val);
         let userWall = await db.getUserById(userId);
 
+        newPost.rows[0].created_at = moment(
+            newPost.rows[0].created_at,
+            moment.ISO_8601
+        ).fromNow();
+
         const wallResult = {...newPost.rows[0], ...userWall.rows[0]};
-        console.log("wallResult", wallResult);
+        // console.log("wallResult", wallResult);
 
         // console.log("newPost.rows", newPost.rows);
         // io.emit('newWallPost', newPost.rows[0]);
@@ -369,7 +390,7 @@ io.on('connection', async function(socket) {
         // } else {
         //     //not able to write on wall
         // }
-        console.log("id.receiver_id", id.receiver_id);
+        // console.log("id.receiver_id", id.receiver_id);
     });
 
     // ----------------------------------wall---------------------------------------
