@@ -65,7 +65,6 @@ export default function(state = {}, action) {
 
     if(action.type == 'OLD_WALL_POST') {
         console.log("OLD_WALL_POST");
-
         state = {
             ...state,
             post: action.post

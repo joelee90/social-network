@@ -338,8 +338,8 @@ io.on('connection', async function(socket) {
 
     // ----------------------------------wall---------------------------------------
 
-    socket.on('allwallpost', async (id) => {
-        const getWallPost = await db.getWallPost(id);
+    socket.on('allwallpost', async () => {
+        const getWallPost = await db.getWallPost();
         console.log("getWallPost", getWallPost.rows);
 
         io.emit('oldWallPost', getWallPost.rows.reverse());
@@ -354,8 +354,14 @@ io.on('connection', async function(socket) {
         // const checkFriend = await db.checkFriendship(userId, id.receiver_id);
 
         let newPost = await db.addWallPost(userId, id.receiver_id, val);
-        console.log("newPost.rows", newPost.rows);
-        io.emit('newWallPost', newPost.rows[0]);
+        let userWall = await db.getUserById(userId);
+
+        const wallResult = {...newPost.rows[0], ...userWall.rows[0]};
+        console.log("wallResult", wallResult);
+
+        // console.log("newPost.rows", newPost.rows);
+        // io.emit('newWallPost', newPost.rows[0]);
+        io.emit('newWallPost', wallResult);
 
         //check if two are friends
         // if(checkFriend.rows[0].accepted) {

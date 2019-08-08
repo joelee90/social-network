@@ -47,6 +47,8 @@ export default function Wall (props) {
                     val => (
                         <div className="wallpost" key={val.id}>
                             {val.wall}
+                            {val.firstname}
+                            {val.lastname}
                             {val.sender_id_wall}
                         </div>
                     )
