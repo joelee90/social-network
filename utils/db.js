@@ -125,19 +125,10 @@ exports.addWallPost = function addWallPost (sender_id, receiver_id, wall) {
     );
 };
 
-// exports.getWallPost = function getWallPost () {
-//     return db.query (
-//         `
-//         SELECT wall.id, sender_id, receiver_id, wall.wall, wall.created_at, information.firstname, information.lastname, information.url FROM wall
-// 	INNER JOIN friendships ON (sender_id_wall = $1 AND receiver_id_wall = $2) OR (receiver_id_wall = $1 AND sender_id_wall = $2) LEFT JOIN information ON friendships.sender_id = information.id ORDER BY wall.id DESC LIMIT 100
-//         `
-//     );
-// };
-
 exports.getWallPost = function getWallPost (id) {
     return db.query (
         `
-        SELECT sender_id_wall, receiver_id_wall, wall FROM wall WHERE receiver_id_wall=$1
+        SELECT * FROM wall WHERE receiver_id_wall=$1
         `,[id]
     );
 };

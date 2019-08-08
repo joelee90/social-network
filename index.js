@@ -338,13 +338,24 @@ io.on('connection', async function(socket) {
 
     // ----------------------------------wall---------------------------------------
 
+    socket.on('allwallpost', async (id) => {
+        const getWallPost = await db.getWallPost(id);
+        console.log("getWallPost", getWallPost.rows);
+
+        io.emit('oldWallPost', getWallPost.rows.reverse());
+
+        getWallPost.rows.forEach(wallpost => {
+            wallpost.created_at = moment(wallpost.created_at, moment.ISO_8601).fromNow();
+        });
+    });
+
     socket.on('wallpost', async (val, id) => {
         console.log(`post from ${userId} to ${id.receiver_id}: ${val}`);
         // const checkFriend = await db.checkFriendship(userId, id.receiver_id);
 
         let newPost = await db.addWallPost(userId, id.receiver_id, val);
         console.log("newPost.rows", newPost.rows);
-        io.emit('newWallPost', newPost);
+        io.emit('newWallPost', newPost.rows[0]);
 
         //check if two are friends
         // if(checkFriend.rows[0].accepted) {
@@ -352,17 +363,7 @@ io.on('connection', async function(socket) {
         // } else {
         //     //not able to write on wall
         // }
-
         console.log("id.receiver_id", id.receiver_id);
-
-        let getWallPost = await db.getWallPost(id.receiver_id);
-        console.log("getWallPost", getWallPost.rows);
-
-        io.emit('oldWallPost', getWallPost.rows);
-
-        getWallPost.rows.forEach(wallpost => {
-            wallpost.created_at = moment(wallpost.created_at, moment.ISO_8601).fromNow();
-        });
     });
 
     // ----------------------------------wall---------------------------------------

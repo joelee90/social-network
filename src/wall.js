@@ -5,25 +5,28 @@ import { useSelector } from 'react-redux';
 
 export default function Wall (props) {
 
-    console.log("props", props.OtherId);
-    let wallId = props.OtherId;
-
     const wallPosts = useSelector(
         state => state && state.post
     );
     console.log("wallPosts wall.js", wallPosts);
 
+    console.log("props", props.OtherId);
+    let wallId = props.OtherId;
+
+
+
     const elemRef = useRef();
 
     useEffect(() => {
         console.log("mounted!");
+        socket.emit('allwallpost', wallId);
         // async () => {
         // const list =  await axios.get(`/userwall/${props.OtherId}`);
         // const list = axios.get(`/userwall/${props.OtherId}`);
         // console.log("data get", list);
         // };
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, [wallPosts]);
+    }, []);
 
     const keyCheck = (e) => {
         if(e.key === "Enter") {
@@ -39,13 +42,12 @@ export default function Wall (props) {
     return (
         <div>
             <h1>This is wall</h1>
-            <div style={{height: "40vh"}} ref = { elemRef }>
+            <div ref = { elemRef }>
                 {wallPosts && wallPosts.map(
                     val => (
                         <div className="wallpost" key={val.id}>
                             {val.wall}
                             {val.sender_id_wall}
-                            
                         </div>
                     )
                 )}

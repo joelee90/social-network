@@ -23,13 +23,14 @@ export default class OtherProfile extends React.Component {
             console.log("err other profile", err);
         }
 
-        try {
-            const {id} = this.props.match.params;
-            const {data} = await axios.get(`/userwall/${id}`);
-            // console.log(data);
-        }catch (err) {
-            console.log("err in wall", err);
-        }
+        // try {
+        //     const {id} = this.props.match.params;
+        //     const {data} = await axios.get(`/userwall/${id}`);
+        //     // console.log(data);
+        // } catch (err) {
+        //     console.log("err in wall", err);
+        // }
+
     }
 
     render() {
