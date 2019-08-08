@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { socket } from './socket';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function Chat() {
@@ -60,6 +61,7 @@ export default function Chat() {
                     placeholder = "Add your message here"
                     onKeyDown = { keyCheck }
                     style ={{width: "40vw", height: "8vh"}}
+                    className = "textarea"
                 >
                 </textarea>
             </div>

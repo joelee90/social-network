@@ -13,30 +13,17 @@ export default function Wall (props) {
     console.log("props", props.OtherId);
     let wallId = props.OtherId;
 
-
-
     const  elemRef = useRef();
 
-
     useEffect(() => {
-        console.log(elemRef);
+        // console.log(elemRef);
         console.log("mounted!");
         socket.emit('allwallpost', wallId);
-        // async () => {
-        // const list =  await axios.get(`/userwall/${props.OtherId}`);
-        // const list = axios.get(`/userwall/${props.OtherId}`);
-        // console.log("data get", list);
-        // };
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, []);
 
     useEffect(() => {
-        console.log("mountedee!");
-        // async () => {
-        // const list =  await axios.get(`/userwall/${props.OtherId}`);
-        // const list = axios.get(`/userwall/${props.OtherId}`);
-        // console.log("data get", list);
-        // };
+        console.log("mounted 2!");
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, [wallPosts]);
 
@@ -46,7 +33,6 @@ export default function Wall (props) {
             console.log(e.target.value);
             socket.emit('wallpost', e.target.value, {
                 receiver_id: wallId
-                // wallOwner: 23
             });
             e.target.value = "";
         }
@@ -54,7 +40,9 @@ export default function Wall (props) {
 
     return (
         <div>
-            <h2>Leave a post</h2>
+
+            <img src= "/images/post.png"/>
+            <br/>
             <textarea
                 placeholder = "Leave a post for your mate"
                 onKeyDown = { keyCheck }
@@ -62,7 +50,6 @@ export default function Wall (props) {
                 className="textarea"
             />
             <div className="wall-post-large" ref = { elemRef }>
-
                 {wallPosts && wallPosts.map(
                     val => (
                         <div className="wallpost" key={val.id}>
@@ -70,24 +57,14 @@ export default function Wall (props) {
                             < br/>
                             {val.firstname} {""}
                             {val.lastname} < br/>
-                            <div>{val.wall}</div>
+                            <div style={{color: "#0099cc"}}>{val.wall}</div>
                             {val.created_at}
                         </div>
                     )
                 )}
-                
             </div>
+
         </div>
+
     );
 }
-
-
-// try {
-//     const wall = await axios.post(`/userwall/${props.OtherId}`, {
-//         wall: e.target.value
-//     });
-//     console.log("wall post", wall);
-//     // e.target.value = "";
-// } catch (err) {
-//     console.log("err in keycheck", err);
-// }

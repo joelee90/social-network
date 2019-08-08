@@ -28,11 +28,10 @@ export default function FindPeople () {
 
     return (
         <div className = "searched">
-            <h1 className="search-heading">Find your mates :)</h1>
-
+            <img style = {{marginLeft: "30%"}} src= "/images/mate.png"/>
             <input
                 className = "inputforsearch"
-                style= {{margin: "20px", width: "500px"}}
+                style= {{margin: "30px", width: "500px"}}
                 type="text" name="searchbar"
                 placeholder="search for new mates"
                 onChange={ e => setVal(e.target.value)}

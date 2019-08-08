@@ -303,11 +303,10 @@ let wallPost = [];
 
 io.on('connection', async function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
-
     // onLineUsers[socket.id] = socket.request.session.userId;
     //online user, check that id is on the list once. then emit event about user appearance.
     let userId = socket.request.session.userId;
-    console.log("userId", userId);
+    console.log("userId connection", userId);
     let socketId = socket.id;
 
     if (!userId) {
@@ -336,38 +335,33 @@ io.on('connection', async function(socket) {
         // console.log("results", result);
         io.emit('newChatMessage', result);
     });
-
     // ----------------------------------wall---------------------------------------
 
     wallPost.push({
         userId,
         socketId: socket.id
     });
-    console.log("wallPost", wallPost);
-
+    // console.log("wallPost", wallPost);
 
     socket.on('allwallpost', async (id) => {
-        console.log("receiver", id);
+        // console.log("userId allwallpost", userId);
+        id = id || userId;
+        // console.log("id", id);//depending on the id, if i user goes to his/her profile see wall post
         const getWallPost = await db.getWallPost(id);
         // console.log("getWallPost", getWallPost.rows);
-
         getWallPost.rows.forEach(wallpost => {
             wallpost.created_at = moment(wallpost.created_at, moment.ISO_8601).fromNow();
         });
-
         let unique = wallPost.filter(
             val => val.userId == id
         );
-        console.log("unique", unique);
-
-        io.emit('oldWallPost', getWallPost.rows);
+        // console.log("unique", unique);
+        io.emit('oldWallPost', getWallPost.rows.reverse());
         // io.to('oldWallPost', );
-
     });
 
     socket.on('wallpost', async (val, id) => {
         console.log(`post from ${userId} to ${id.receiver_id}: ${val}`);
-        // const checkFriend = await db.checkFriendship(userId, id.receiver_id);
 
         let newPost = await db.addWallPost(userId, id.receiver_id, val);
         let userWall = await db.getUserById(userId);
@@ -378,79 +372,14 @@ io.on('connection', async function(socket) {
         ).fromNow();
 
         const wallResult = {...newPost.rows[0], ...userWall.rows[0]};
-        // console.log("wallResult", wallResult);
-
-        // console.log("newPost.rows", newPost.rows);
-        // io.emit('newWallPost', newPost.rows[0]);
         io.emit('newWallPost', wallResult);
-
-        //check if two are friends
-        // if(checkFriend.rows[0].accepted) {
-        //     //able to write on wall
-        // } else {
-        //     //not able to write on wall
-        // }
-        // console.log("id.receiver_id", id.receiver_id);
     });
-
     // ----------------------------------wall---------------------------------------
-
     socket.on('disconnect', function() {
         console.log(`socket with the id ${socket.id} is now disconnected`);
     });
-
-    // socket.on('newMessage', function(newMessage) {
-    //
-    //     // delete onOnlineUsers[socket.id];
-    //     //online user
-    //
-    //     console.log("This is new chat message", newMessage);
-    //     //figure out who sent message then make a db query to get info about
-    //     // that user. THEN -> create a new message object that matches the objects
-    //     //in the last 10 chat messages.
-    //     //emit that there is a new chat and pass the object.
-    //     //add this chat message to our db.
-    // });
-
 });
 // ----------------------------- part9 -----------------------------
-// ----------------------------- wall -----------------------------
-
-// app.get('/userwall/:id', async (req, res) => {
-//     // console.log("req.params.id get", req.params.id);
-//     // let wallpost = db.getWallPost(req.session.userId);
-//     // console.log("wallpost", wallpost);
-//     // res.json(wallpost);
-//
-//     // console.log("req.params.id get", req.params.id);
-//     // try {
-//     //     let data = await db.getWallPost(req.params.id);
-//     //     console.log("data index.js", data);
-//     //     res.json(data);
-//     // } catch (err) {
-//     //     console.log("err", err);
-//     // }
-// });
-
-// app.post('/userwall/:id', async (req, res) => {
-//     console.log("req.params.id post", req.params.id);
-//     const sender = req.session.userId;
-//     // const { id } = req.params;
-//     const receiver = req.params.id;
-//     const wall = req.body.wall;
-//     console.log("wall", wall);
-//
-//     try {
-//         await db.addWallPost(sender, receiver, wall);
-//         res.json(wall);
-//     } catch(err){
-//         console.log("err in app post /user", err);
-//     }
-// });
-
-
-// ----------------------------- wall -----------------------------
-
 server.listen(8080, function() {
     console.log("What's Poppin 😎");
 });

@@ -39,10 +39,10 @@ export default function Friends () {
 
     return (
         <div>
-            <h1 style={{margin: "10px"}}>Your Mates are here!</h1>
+            <h1 style={{marginLeft: '600px'}} ><img src= "/images/people.png"/></h1>
             <div className="people">
                 <div className="wannabes">
-                    <h1>Mate Wannabes</h1>
+                    <img src= "/images/wana.png"/>
                     {wannabes && wannabes.map(
                         val => (
                             <div className="wannabesindi" key={val.id}>
@@ -55,8 +55,9 @@ export default function Friends () {
                         )
                     )}
                 </div>
+
                 <div className="friends">
-                    <h1>Your Mates</h1>
+                    <img src= "/images/matess.png"/>
                     {friends && friends.map(
                         val => (
                             <div className="friendsindi" key={val.id}>
@@ -69,8 +70,9 @@ export default function Friends () {
                         )
                     )}
                 </div>
+
                 <div className="pennding">
-                    <h1>My Wannabes</h1>
+                    <img src= "/images/mywanna.png"/>
                     {myPennding && myPennding.map(
                         val => (
                             <div className="penndingindi" key={val.id}>

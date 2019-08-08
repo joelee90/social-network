@@ -56,11 +56,11 @@ export default class Registration extends React.Component {
                     <input type="text" name="email" placeholder="email" onChange={ e => this.handleChange(e) } required/>
                     <input type="password"  name="password" placeholder="password" onChange={ e => this.handleChange(e) } required/>
                     < br/>
-                    <button className="regi-btn" variant="secondary" size="lg" onClick={ e => this.submit(e) }>Register</button>
+                    <button className="regi-btn" variant="primary" size="sm" onClick={ e => this.submit(e) }>Register</button>
                 </form>
                 <div className="alreadymember">
                     <div>
-                        <h2 style = {{color: "#2A433B"}}> Already a member? <Link to = "/login" style = {{textDecoration: "none", color: "#18A558"}}>Log in</Link> </h2>
+                        <h4 style = {{color: "#2A433B"}}> Already a member? <Link to = "/login" style = {{textDecoration: "none", color: "#258577"}}>Log in</Link> </h4>
                     </div>
                 </div>
             </div>

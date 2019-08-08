@@ -34,7 +34,7 @@ export default class App extends React.Component {
                 <BrowserRouter>
                     <div>
                         <header className="headerapp">
-                            <img className = "headerlogo" src= "/images/line.png"  alt="Line" width = "100px" />
+                            <img className = "headerlogo" src= "/images/line.png"  alt="Line" width = "80px" />
                             <ul>
                                 <li><Link style = {{textDecoration: "none"}} to = "/">My Profile</Link></li>
                                 <li><Link style = {{textDecoration: "none"}} to = "/users">Find People</Link></li>

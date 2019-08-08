@@ -538,7 +538,13 @@ only show = receiver _id_wall (what the person received)
 
 and after it's done - check if friends, and textarea only available between the friends.
 
+----
 
+notification component -> emit(receivers.id, )
+
+friend notification when someone sends the request.
+
+need to know who is sending. the moment when someone clicks friend req -> trigger action.
 
 
 

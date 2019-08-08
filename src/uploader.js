@@ -48,7 +48,7 @@ export default class Uploader extends React.Component {
                     className="inputfile"
                     accept='image/*'
                 />
-                <label htmlFor="file">Upload</label>
+                <label className="up" htmlFor="file">Upload</label>
                 <button className="close-btn" onClick={ e => this.close(e) }>Close</button>
             </div>
         );
