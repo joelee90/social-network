@@ -117,6 +117,7 @@ li a.active {
 .userimg img {
     width: 100px;
     border-radius: 150px;
+    max-height: 100px;
     box-shadow: 8px 6px 26px 19px rgba(170,173,170,1);
 }
 
@@ -246,11 +247,15 @@ li a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 .propic img {
     object-fit: cover;
     border-radius: 150px;
+    width: 150px;
+    max-height: 150px;
+
 }
 
 .nameandbio {
@@ -388,7 +393,7 @@ li a.active {
 
 .wannabesindi img {
     width: 150px;
-    max-height: 150px;
+    /* max-height: 150px; */
     object-fit: cover;
     border-radius: 200px;
 }
@@ -537,4 +542,18 @@ li a.active {
     border-radius: 150px;
     width: 50px;
     max-height: 50px;
+}
+
+.liveimg {
+    margin-left: 200px;
+}
+
+
+.home {
+    height: 100vh;
+    background: url("/PostAd_back_high.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

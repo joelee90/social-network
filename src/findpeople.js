@@ -5,16 +5,11 @@ import axios from './axios';
 export default function FindPeople () {
     const [user, setUser] = useState();
     const [val, setVal] = useState();
-    //value of the text field.
-    // console.log("user", user);
-    // console.log("val", val);
 
     useEffect(() => {
         if(!val) {
             (async () => {
-                // console.log("val", val);
                 const list = await axios.get(`/api/users`);
-                // console.log('list', list.data);
                 setUser(list.data);
             })();
         } else {

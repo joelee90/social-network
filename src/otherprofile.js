@@ -13,24 +13,13 @@ export default class OtherProfile extends React.Component {
         try {
             const {id} = this.props.match.params;
             const {data} = await axios.get(`/api/user/${id}`);
-            // const data = response.data; same as above.
-            // console.log("data", data);
-            // console.log("id", id);
+
             if(data.sameUser) {
                 this.props.history.push('/');
             } this.setState( data );
         } catch (err) {
             console.log("err other profile", err);
         }
-
-        // try {
-        //     const {id} = this.props.match.params;
-        //     const {data} = await axios.get(`/userwall/${id}`);
-        //     // console.log(data);
-        // } catch (err) {
-        //     console.log("err in wall", err);
-        // }
-
     }
 
     render() {
@@ -51,4 +40,3 @@ export default class OtherProfile extends React.Component {
         );
     }
 }
-// <Wall OtherId = {this.props.match.params.id}/>

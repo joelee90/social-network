@@ -8,30 +8,15 @@ export default function Chat() {
     const chatMessages = useSelector(
         state => state && state.message
     );
-    // console.log("last 10 messages", chatMessages);
-
-    // const newMessage = useSelector(
-    //     state => state && state.message
-    // );
-    // console.log("newMessages", newMessage);
 
     const elemRef = useRef();
 
     useEffect(() => {
-        // console.log("chat hooks mounted");
-        // console.log("elemRef", elemRef);
-        // console.log("scroll top: ", elemRef.current.scrollTop);
-        // console.log("scroll height: ", elemRef.current.scrollHeight);
-        // console.log("client height: ", elemRef.current.clientHeight);
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, [chatMessages]);
-    //auto scroll down when page loads.
 
     const keyCheck = (e) => {
-        // console.log("e.target.val", e.target.value);
-        // console.log("e.key", e.key);
         if(e.key === "Enter") {
-            // console.log("Enter pressed!");
             e.preventDefault();
             socket.emit('Send chat', e.target.value);
             e.target.value = "";
@@ -41,7 +26,7 @@ export default function Chat() {
     return (
         <div className = "chat-body">
             <div className = "chat">
-                <h1>Live Chat</h1>
+                <img className="liveimg" src= "/images/live.png" />
                 <div className="chat-container" ref = { elemRef } >
                     {chatMessages && chatMessages.map(
                         val => (
@@ -68,8 +53,3 @@ export default function Chat() {
         </div>
     );
 }
-
-// <React.Fragment>
-// </React.Fragment>
-
-//ref - manually change the DOM,

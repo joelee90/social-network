@@ -9,9 +9,7 @@ export default class Uploader extends React.Component {
     }
 
     upload(e) {
-        // console.log('upload click!');
         let file = e.target.files[0];
-        // console.log("file", file);
         let formData = new FormData();
         formData.append('file', file);
 
@@ -19,9 +17,6 @@ export default class Uploader extends React.Component {
             .then(({data}) => {
                 if(data.success) {
                     this.props.done(data.data);
-                    // self.props.onChange(data.url);
-                    // console.log("data", data);
-                    // console.log("data.data", data.data);
                 } else {
                     console.log('upload fail');
                 }
@@ -35,7 +30,6 @@ export default class Uploader extends React.Component {
         console.log('closebtn!!', e);
         this.props.close();
     }
-
 
     render() {
         return (

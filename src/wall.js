@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { socket } from './socket';
 import { useSelector } from 'react-redux';
-// import axios from './axios';
 
 export default function Wall (props) {
 
@@ -16,7 +15,6 @@ export default function Wall (props) {
     const  elemRef = useRef();
 
     useEffect(() => {
-        // console.log(elemRef);
         console.log("mounted!");
         socket.emit('allwallpost', wallId);
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
@@ -40,7 +38,6 @@ export default function Wall (props) {
 
     return (
         <div>
-
             <img src= "/images/post.png"/>
             <br/>
             <textarea
@@ -63,7 +60,6 @@ export default function Wall (props) {
                     )
                 )}
             </div>
-
         </div>
 
     );

@@ -1,24 +1,15 @@
-//need state, if user submits registration, if error --> update to show error, reason why
-//state is needed. use default when one
-
 import React from 'react';
-
 import axios from './axios';
-
 import { HashRouter, Route, Link } from 'react-router-dom';
 
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        // this.submit = this.submit.bind(this);
     }
 
     handleChange(e) {
         this[e.target.name] = e.target.value;
-        // this.setState({
-        //     [e.target.name]: e.target.value
-        // });
     }
 
     submit(e) {

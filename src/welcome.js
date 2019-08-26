@@ -2,8 +2,8 @@
 import React from 'react';
 import Registration from './registration';
 import Login from './login';
-import { HashRouter, Route } from 'react-router-dom'; //Switch also possible
-//Link needs to be contained by router
+import { HashRouter, Route } from 'react-router-dom';
+
 export default class Welcome extends React.Component {
     render() {
         return (
@@ -20,5 +20,3 @@ export default class Welcome extends React.Component {
         );
     }
 }
-
-//HashRouter can contain anything, anywhere.
